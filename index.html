@@ -42,23 +42,21 @@
                 return;
             }
 
-            // --- LÓGICA DE CONEXIÓN A SOBRE.HTML ---
-            // 1. Obtenemos la dirección actual y quitamos index.html y cualquier parámetro (?...)
+            // --- LÓGICA DE CONEXIÓN CORREGIDA ---
+            // Eliminamos 'index.html' y cualquier parámetro previo
             let urlActual = window.location.href.split('?')[0].replace('index.html', '');
             
-            // 2. Nos aseguramos de que la ruta termine con una diagonal /
+            // Forzamos la barra diagonal al final
             if (!urlActual.endsWith('/')) {
                 urlActual += '/';
             }
             
-            // 3. Creamos el link final apuntando a sobre.html
+            // USAMOS BACKTICKS ( ` ) PARA CONSTRUIR EL LINK
             const linkMagico = `${urlActual}sobre.html?n=${encodeURIComponent(nombre)}&p=${pases}`;
             
-            // 4. Mostramos el resultado en el panel
             document.getElementById('resultado').style.display = 'block';
             document.getElementById('linkFinal').value = linkMagico;
             
-            // 5. Configuramos el botón de WhatsApp
             const mensajeWS = `¡Hola ${nombre}! 👋 Queremos compartir este momento tan especial con ustedes. Aquí tienen su invitación digital: ${linkMagico}`;
             document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(mensajeWS)}`;
         }
