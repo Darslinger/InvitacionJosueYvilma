@@ -43,12 +43,17 @@
             }
 
             // --- LA CONEXIÓN MÁGICA ---
-            // Detectamos la URL actual y nos aseguramos de que apunte a invitacion.html
-            let urlActual = window.location.href.split('?')[0];
-            let urlDestino = urlActual.replace('index.html', '');
-            if (!urlDestino.endsWith('/')) urlDestino += '/';
+            // Como este archivo es 'index.html', el link base es la URL actual
+            // pero apuntando al archivo del sobre 'invitacion.html'
+            let urlActual = window.location.origin + window.location.pathname;
+            let urlDestino = urlActual.replace('index.html', 'invitacion.html');
             
-            const linkMagico = `${urlDestino}invitacion.html?n=${encodeURIComponent(nombre)}&p=${pases}`;
+            // Si la URL no termina en invitacion.html, se la agregamos manualmente
+            if (!urlDestino.includes('invitacion.html')) {
+                urlDestino = urlDestino.endsWith('/') ? urlDestino + 'invitacion.html' : urlDestino + '/invitacion.html';
+            }
+            
+            const linkMagico = `${urlDestino}?n=${encodeURIComponent(nombre)}&p=${pases}`;
             
             document.getElementById('resultado').style.display = 'block';
             document.getElementById('linkFinal').value = linkMagico;
