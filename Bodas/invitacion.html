@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Invitación | Vilma & Josué</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Paleta Cream y Azul Lavanda */
+      --cream:#f3f2f0;
+      --blue:#aebbd6;
+      --ink:#1f1f1f;
+      --line:#b8bfda;
+      --serif:"Playfair Display", serif;
+      --sans:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --maxW: clamp(360px, 94vw, 1200px);
+      --btn:#7f94c4;
+      --btnText:#fff;
+      --textMax: 62ch;
+      --gold-metallic: #b89c7d;
+      --gold-light: #dab491;
+      /* Color para iconos finos sobre azul */
+      --silver-etch: #e0e6ed; 
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background: var(--cream);
+      font-family:var(--sans);
+      color:var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* ========= HERO / PORTADA ========= */
+    .hero{ 
+      position: relative; 
+      background: #000; 
+      overflow: hidden; 
+      height: 100vh; 
+      width: 100%;
+    }
+    
+    .hero img{
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .hero::after{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.20) 42%, rgba(0,0,0,.60));
+      z-index: 1;
+    }
+
+    .heroContent{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      text-align:center; padding: 30px 16px; z-index:2; color:#fff;
+    }
+    
+    .heroInner{ width: min(620px, 92%); }
+    .heroKicker{ font-family: var(--serif); letter-spacing:.20em; text-transform: uppercase; font-size: clamp(.90rem, 2.7vw, 1.05rem); margin-bottom: 14px; text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+    .heroTitle{ font-family: var(--serif); font-weight: 600; letter-spacing:.10em; text-transform: uppercase; font-size: clamp(2.2rem, 8vw, 3.5rem); margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
+    .heroNames{ font-family: var(--serif); font-weight: 500; font-size: clamp(1.4rem, 5vw, 1.8rem); margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,.40); }
+    .heroDate{ font-family: var(--sans); letter-spacing:.20em; text-transform: uppercase; font-weight: 600; font-size: clamp(.82rem, 2.8vw, .92rem); text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+
+    /* ========= INVITACIÓN PREMIUM ========= */
+    .invitation-premium {
+      padding: 100px 0;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 10; 
+      background-image: url('assets/fondoflor2.jpeg');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+    }
+
+    .inv-card-frame { width: min(90%, 550px); position: relative; z-index: 2; }
+    .inv-paper { background: #fff; padding: 10px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+    .inv-inner-content { border: 1px solid rgba(184, 191, 218, 0.4); padding: 50px 30px; text-align: center; }
+    .inv-label-premium { font-family: var(--sans); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 25px; }
+    .gold-text { background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+    .inv-names-script { font-family: 'Pinyon Script', cursive; font-size: clamp(3rem, 10vw, 4.5rem); margin: 15px 0 30px 0; line-height: 1.1; }
+    .inv-serif-text { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: rgba(0,0,0,0.75); }
+    .inv-parents { font-family: var(--serif); font-size: 1rem; margin-bottom: 20px; line-height: 1.6; color: var(--ink); opacity: 0.9; }
+    .inv-date-premium { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 40px; }
+    .inv-date-premium span { font-size: 0.75rem; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
+    .date-number { position: relative; padding: 0 15px; }
+    .date-number::before, .date-number::after { content:""; position: absolute; top: 50%; width: 40px; height: 1px; background-color: var(--line); opacity: 0.5; }
+    .date-number::before { left: -50px; }
+    .date-number::after { right: -50px; }
+    .gold-number { font-size: 3rem; line-height: 1; color: var(--btn); font-family: var(--serif); }
+
+    /* ========= RELOJ ========= */
+    .countSec{ background: var(--blue); color:#fff; padding: 34px 0; text-align:center; position: relative; z-index: 10; }
+    .countRow{ display:flex; justify-content:center; gap: clamp(18px, 4.6vw, 42px); flex-wrap:wrap; margin-top: 16px;}
+    .countNum{ font-family: var(--serif); font-weight: 600; font-size: clamp(1.65rem, 5.2vw, 2.35rem); }
+    .countLab{ font-size: clamp(.74rem, 2.4vw, .82rem); letter-spacing:.16em; text-transform: uppercase; font-weight: 600; }
+
+    /* ========= CALENDARIO ========= */
+    .bigDay { text-align:center; padding: 60px 0; background: var(--cream); position: relative; z-index: 10; }
+    .bigDay h3 { margin: 0 0 30px; font-family: var(--serif); font-weight: 600; font-size: clamp(1.4rem, 4vw, 1.8rem); letter-spacing: .08em; text-transform: uppercase; }
+    .calStage { width: min(720px, 94%); margin: 0 auto; position: relative; padding: 60px 20px; border-radius: 24px; background-image: url('assets/fondoflor.jpeg'); background-size: cover; background-position: center; }
+    .calStage::before { content: ""; position: absolute; inset: 0; background: rgba(243, 242, 240, 0.5); border-radius: 24px; z-index: 1; }
+    .calendar { width: min(420px, 100%); margin: 0 auto; font-family: var(--serif); position: relative; z-index: 2; background: #fff; border-radius: 15px; padding: 35px 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .calMonth { display: flex; align-items: center; justify-content: center; gap: 15px; font-family: var(--sans); font-weight: 800; letter-spacing: .3em; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 30px; }
+    .calGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; justify-items: center; }
+    .dow { font-family: var(--sans); font-size: 0.7rem; letter-spacing: .1em; text-transform: uppercase; opacity: 0.5; font-weight: 700; margin-bottom: 15px; }
+    .day { width: 34px; height: 34px; display: grid; place-items: center; font-size: 0.95rem; position: relative; }
+    .empty { opacity: 0; }
+    .heart-date { color: #fff !important; font-weight: 700 !important; z-index: 5; }
+    .heart-date::before { content: "❤"; position: absolute; font-size: 38px; color: var(--btn); z-index: -1; top: 48%; left: 50%; transform: translate(-50%, -50%); animation: heartPulse 1.5s infinite ease-in-out; }
+    @keyframes heartPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.2); } }
+
+    /* ========= LUGARES ========= */
+    .places { 
+      padding: 80px 0; 
+      background-image: url('assets/florfondo3.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative; 
+      z-index: 10; 
+    }
+
+    .places::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(243, 242, 240, 0.75); 
+      z-index: 1;
+    }
+
+    .places .wrap { position: relative; z-index: 2; }
+    .placesGrid { width: min(90%, 500px); margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+    
+    .placeCard { 
+      padding: 50px 30px; 
+      border-radius: 60px; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12); 
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .placeCard.ceremony {
+      background-color: var(--blue);
+      background-image: url('assets/fondotexturapapel.jpeg');
+      background-size: cover;
+      color: #fff; 
+    }
+
+    .placeCard.reception { background: rgba(255, 255, 255, 0.98); }
+    .placeCard:hover { transform: translateY(-5px); }
+
+    .placeIcon { width: 45px; height: 45px; margin: 0 auto 15px; }
+    .placeIcon svg { width:100%; height:100%; fill:none; stroke: currentColor; stroke-width: 1.2; }
+    .placeCard.ceremony .placeIcon { color: rgba(255,255,255,0.8); }
+    .placeCard.reception .placeIcon { color: var(--gold-metallic); }
+    
+    .ref-header { font-family: 'Crimson Text', serif; font-style: italic; font-size: 1.2rem; margin-bottom: 5px; opacity: 0.85; }
+    .placeTitle { font-family: var(--serif); font-weight: 500; font-size: 2.3rem; margin-bottom: 12px; }
+    .placeTime { 
+      font-family: var(--serif); font-size: 1.05rem; margin-bottom: 20px; display: block; 
+      border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); padding: 8px 0; width: fit-content; margin: 0 auto 20px;
+    }
+    .placeCard.ceremony .placeTime { border-color: rgba(255,255,255,0.3); }
+    .placeAddr { font-family: 'Pinyon Script', cursive; font-size: 1.7rem; line-height: 1.2; color: var(--gold-metallic); margin: 0 auto 30px; }
+    .placeCard.ceremony .placeAddr { color: #fff; }
+
+    .btn-map { 
+      display: inline-block; padding: 14px 35px; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; text-decoration: none; 
+      background: #fff; color: var(--ink); border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; transition: all 0.3s;
+    }
+    .btn-map:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ========= COLLAGE ========= */
+    .collage-section { background: var(--cream); padding: 60px 0; position: relative; z-index: 10; overflow: hidden; }
+    .collage-slider { display: flex; overflow-x: auto; gap: 30px; padding: 20px 40px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .instant-photo { flex: 0 0 100%; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; }
+    .photo-frame { background: #fff; padding: 12px 12px 40px 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: min(100%, 350px); }
+    .instant-photo img { width: 100%; height: 380px; object-fit: cover; }
+    .photo-caption { font-family: 'Crimson Text', serif; font-style: italic; text-align: center; margin-top: 15px; color: rgba(0,0,0,0.6); }
+
+    /* ========= PLACEHOLDERS PARA ICONOS CON IMAGEN INTEGRADA ========= */
+    .icon-placeholder {
+      /* TAMAÑO GENERAL PARA ICONOS LINEALES */
+      width: 180px; 
+      height: 180px;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon-placeholder img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* ESTILO ESPECÍFICO PARA EL ICONO DE COPAS LIMPIO Y GRANDE */
+    .copas-icon-container {
+      width: 180px; 
+      height: 180px;
+      margin: 30px auto; 
+    }
+
+    /* ========= CODIGO Y ADULTOS SECTION CON FONDO PNG ========= */
+    .codigo-adultos-section {
+      position: relative;
+      padding: 120px 0;
+      background-image: url('assets/florfondo3.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+      z-index: 10;
+    }
+    
+    .codigo-adultos-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(243, 242, 240, 0.4);
+      z-index: 1;
+    }
+
+    .dual-grid {
+      position: relative;
+      z-index: 2;
+      width: min(90%, 950px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .dress-code-card-dual {
+      background-color: var(--blue);
+      border-radius: 18px;
+      padding: 50px 30px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .adults-card-dual {
+      background: #fff;
+      border-radius: 200px 200px 0 0; 
+      padding: 80px 40px 50px;
+      text-align: center;
+      color: var(--ink);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      border: 1px solid rgba(184, 191, 218, 0.3);
+    }
+
+    .dual-label { font-family: var(--sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 8px; }
+    .dual-title-script { font-family: 'Pinyon Script', cursive; font-size: 3rem; font-weight: 400; margin-bottom: 15px; }
+    .dress-code-card-dual .dual-title-script, 
+    .dress-code-card-dual .dual-label { color: #fff; }
+    .adults-card-dual .dual-title-script, 
+    .adults-card-dual .dual-label { color: var(--ink); }
+
+    .dual-text { font-family: 'Crimson Text', serif; font-size: 1.1rem; line-height: 1.6; max-width: 320px; margin: 0 auto 30px; }
+    .dress-code-card-dual .dual-text { color: #fff; } /* Texto blanco sobre fondo azul */
+    .adults-card-dual .dual-text { color: #666; font-style: italic; }
+
+    .dress-tag-dual { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; color: #fff; }
+
+    /* EFECTO DE GRABADO PLATEADO BRILLANTE Y NÍTIDO AL ICONO TRAJE */
+    .gala-icon {
+      filter: drop-shadow(0 0 1px rgba(255,255,255,0.9)) 
+              brightness(1.5) 
+              contrast(1.2) 
+              opacity(1) 
+              drop-shadow(0 0 0 rgba(255,255,255,0.95)); 
+    }
+
+    /* ========= FINAL SECTION CON FONDO ACLARADO ========= */
+    .final-section-container {
+      position: relative;
+      padding: 80px 0;
+      background-image: url('assets/florfondo3.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      z-index: 10;
+    }
+
+    .final-section-container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(243, 242, 240, 0.85); 
+      z-index: 1;
+    }
+
+    .novios-photo-collage {
+      position: relative;
+      z-index: 2;
+      width: min(90%, 800px);
+      margin: 0 auto 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .novios-photo-collage img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .final-grid-dual {
+      position: relative;
+      z-index: 2;
+      width: min(90%, 950px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .sobres-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 60px 40px;
+      text-align: center;
+      color: var(--ink);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .sobres-title {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 3rem;
+      color: var(--ink);
+      margin-bottom: 25px;
+      /* BAJAR EL TÍTULO UN POCO */
+      margin-top: 20px;
+    }
+
+    .sobres-title-text {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .sobres-text {
+      font-family: var(--sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #666;
+      max-width: 320px;
+      margin: 0 auto 30px;
+    }
+
+    .rsvp-card-arco {
+      background-color: var(--blue);
+      border-radius: 200px 200px 0 0; 
+      padding: 80px 40px 50px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .rsvp-card-arco .rsvp-arco-title-text {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .rsvp-card-arco .dual-title-script {
+      color: #fff;
+    }
+
+    .rsvp-card-arco .dual-text {
+      color: rgba(255,255,255,0.9);
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-style: normal;
+    }
+
+    /* ESTILO ACTUALIZADO PARA GRUPO DE BOTONES RSVP */
+    .btn-group-rsvp {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .btn { 
+      display: inline-block; padding: 16px 40px; font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; background: var(--btn); color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: .3s; }
+    
+    .btn-no { background: rgba(255,255,255,0.2); border: 1px solid #fff; color: #fff; }
+    .btn-no:hover { background: rgba(255,255,255,0.3); }
+
+    /* ESTILO PARA LOS BOTONES DENTRO DEL MODAL */
+    .btn-yes-modal { background: var(--btn); color: #fff; }
+    .btn-no-modal { background: #ccc; color: var(--ink); }
+
+    .modalOverlay{ position: fixed; inset: 0; background: rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index: 9999; }
+    .modalOverlay.open{ display:flex; }
+    .modalBox{ width: min(450px, 90%); background: #fff; padding: 35px; border-radius: 18px; position: relative; text-align:center; }
+    .modalClose{ position:absolute; top: 15px; right: 15px; border:none; background:none; font-size: 24px; cursor:pointer; }
+
+    @media (max-width: 768px) { 
+      .placesGrid, .dual-grid, .final-grid-dual, .novios-photo-collage { grid-template-columns: 1fr; } 
+      .novios-photo-collage img { height: 300px; }
+      .dual-title-script, .sobres-title { font-size: 2.5rem; }
+      .adults-card-dual, .rsvp-card-arco { border-radius: 120px 120px 0 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="hero">
+      <img src="assets/image-4.png" alt="Portada">
+      <div class="heroContent">
+        <div class="heroInner">
+          <div class="heroKicker">Con la bendición de Dios</div>
+          <h1 class="heroTitle">¡Nos casamos!</h1>
+          <div class="heroNames">Vilma & Josué</div>
+          <p class="heroDate">Sábado 27 de junio · 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="invitation-premium">
+      <div class="inv-card-frame">
+        <div class="inv-paper">
+          <div class="inv-inner-content">
+            <p class="inv-parents">Junto a nuestros padres e hijos,<br>tenemos el placer de invitarles a nuestra boda</p>
+            <p class="inv-label-premium"><span class="gold-text">Invitación</span> a la boda de</p>
+            <h2 class="inv-names-script">Vilma & Josué</h2>
+            <p class="inv-serif-text">Tenemos el honor de invitarte a celebrar nuestra unión</p>
+            <div class="inv-date-premium">
+              <span>SÁBADO</span>
+              <div class="date-number"><span class="gold-number">27</span></div>
+              <span>JUNIO 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="countSec">
+      <div class="countNum" style="font-family: var(--serif); font-size: 1.2rem;">Faltan</div>
+      <div class="countRow">
+        <div class="countItem"><div class="countNum" id="cd-d">000</div><div class="countLab">Días</div></div>
+        <div class="countItem"><div class="countNum" id="cd-h">00</div><div class="countLab">Horas</div></div>
+        <div class="countItem"><div class="countNum" id="cd-m">00</div><div class="countLab">Min</div></div>
+        <div class="countItem"><div class="countNum" id="cd-s">00</div><div class="countLab">Seg</div></div>
+      </div>
+    </section>
+
+    <section class="bigDay">
+      <h3>Reserva la fecha</h3>
+      <div class="calStage">
+        <div class="calendar">
+          <div class="calMonth">Junio 2026</div>
+          <div class="calGrid">
+            <div class="dow">Do</div><div class="dow">Lu</div><div class="dow">Ma</div><div class="dow">Mi</div><div class="dow">Ju</div><div class="dow">Vi</div><div class="dow">Sá</div>
+            <div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div>
+            <div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div>
+            <div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div>
+            <div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day heart-date">27</div>
+            <div class="day">28</div><div class="day">29</div><div class="day">30</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="places">
+      <div class="wrap">
+        <div class="placesGrid">
+          <div class="placeCard ceremony">
+            <div class="placeIcon">
+                <svg viewBox="0 0 24 24"><path d="M12 3l3 3v3h3l2 2v10H4V11l2-2h3V6l3-3zM10 21v-6a2 2 0 0 1 4 0v6"></path></svg>
+            </div>
+            <p class="ref-header">Acompáñanos en nuestra</p>
+            <div class="placeTitle">Ceremonia Religiosa</div>
+            <span class="placeTime">SÁBADO | 27 | 6:00 P.M.</span>
+            <div class="placeAddr">Iglesia De Germania</div>
+            <a class="btn-map" href="https://maps.app.goo.gl/dNS4r3oK6ubziQkt9?g_st=iw" target="_blank">Ver ubicación</a>
+          </div>
+
+          <div class="placeCard reception">
+            <div class="placeIcon">
+                <svg viewBox="0 0 24 24"><path d="M8 3h6v2a4 4 0 0 1-4 4H8V3zM12 9v11M9 20h6M14 5h4v2a4 4 0 0 1-4 4h-2"></path></svg>
+            </div>
+            <p class="ref-header">Posteriormente celebra con nosotros</p>
+            <div class="placeTitle">Recepción</div>
+            <span class="placeTime">SÁBADO | 27 | 8:00 P.M.</span>
+            <div class="placeAddr">Centro de Día IPM</div>
+            <a class="btn-map" href="https://maps.app.goo.gl/7e5H8CFa6KLieJXT8?g_st=iw" target="_blank">Ver ubicación</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="collage-section">
+      <div class="collage-slider" id="slider">
+        <div class="instant-photo"><div class="photo-frame"><img src="assets/image-7.png" alt=""><p class="photo-caption">Nuestra Historia</p></div></div>
+        <div class="instant-photo"><div class="photo-frame"><img src="assets/image-9.png" alt=""><p class="photo-caption">Momentos</p></div></div>
+        <div class="instant-photo"><div class="photo-frame"><img src="assets/image-3.png" alt=""><p class="photo-caption">Junio 27, 2026</p></div></div>
+      </div>
+    </section>
+
+    <section class="codigo-adultos-section">
+      <div class="dual-grid">
+        
+        <div class="dress-code-card-dual">
+          <span class="dual-label">VESTIMENTA</span>
+          <h2 class="dual-title-script">Gala</h2>
+          <div class="icon-placeholder">
+            <img src="assets/iconotraje.png" alt="Dress Code Gala" class="gala-icon">
+          </div>
+          <p class="dual-text">
+            Hombres: Smoking negro<br>
+            Mujeres: Vestido largo
+          </p>
+          <div class="dress-tag-dual">DRESS CODE | BLACK TIE</div>
+        </div>
+
+        <div class="adults-card-dual">
+          <span class="dual-label">EVENTO SOLO PARA</span>
+          <h2 class="dual-title-script">Adultos</h2>
+          <div class="icon-placeholder copas-icon-container">
+            <img src="assets/doscopas.png" alt="Solo Adultos">
+          </div>
+          <p class="dual-text">
+            Adoramos a sus hijos, pero para comodidad de todos los invitados, agradecemos que al evento asistan sin niños.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="final-section-container">
+      
+      <div class="final-grid-dual">
+        
+        <div class="sobres-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <span class="sobres-title-text">REGALO DE BODAS</span>
+          <h2 class="sobres-title">Lluvia de Sobres</h2>
+          <div class="icon-placeholder">
+            <img src="assets/sobres.png" alt="Lluvia de Sobres">
+          </div>
+          <p class="sobres-text">
+            El mejor regalo es que nos acompañen en este día tan especial. Si desean bendecirnos con un detalle, agradeceremos con el corazón cualquier aporte voluntario en sobre.
+          </p>
+        </div>
+
+        <div class="rsvp-card-arco">
+          <span class="rsvp-arco-title-text">POR FAVOR</span>
+          <h2 class="dual-title-script">Confírmanos</h2>
+          <p class="dual-text">
+            Celebrar nuestro amor es un sueño hecho realidad, y, para que sea perfecto, nos encantaría contar contigo en nuestra lista de invitados.<br><br>
+            <strong>Confírmanos tu asistencia hasta el</strong>
+          </p>
+          <div class="dress-tag-dual" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">27 de Junio</div>
+          
+          <div class="btn-group-rsvp">
+            <button class="btn btn-confirm" id="openRsvp" style="background: #fff; color: var(--btn);">Confirmar</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div class="modalOverlay" id="rsvpModal">
+    <div class="modalBox">
+      <button class="modalClose" id="closeRsvp">×</button>
+      <div style="font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin-bottom: 20px;">¿Asistirás a la boda?</div>
+      
+      <div style="margin-bottom: 15px; font-family: var(--sans);">
+        Invitación para: <strong id="rsvpName">Invitado</strong><br>
+        Cupos: <span id="rsvpCupos">0</span>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
+        <button class="btn btn-yes-modal" id="btnYes">Sí asistiré</button>
+        <button class="btn btn-no-modal" id="btnNo">No asistiré</button>
+      </div>
+      
+      <div id="statusMsg" style="margin-top: 20px; font-weight: 700; color: var(--btn);"></div>
+    </div>
+  </div>
+
+  <script>
+    const target = new Date("2026-06-27T12:00:00");
+    function tick(){
+      const now = new Date();
+      const diff = Math.max(0, Math.floor((target - now)/1000));
+      document.getElementById("cd-d").textContent = Math.floor(diff/86400);
+      document.getElementById("cd-h").textContent = String(Math.floor((diff%86400)/3600)).padStart(2,"0");
+      document.getElementById("cd-m").textContent = String(Math.floor((diff%3600)/60)).padStart(2,"0");
+      document.getElementById("cd-s").textContent = String(diff%60).padStart(2,"0");
+    }
+    setInterval(tick, 1000); tick();
+
+    const qs = new URLSearchParams(window.location.search);
+    const modal = document.getElementById("rsvpModal");
+    
+    // Función para abrir modal
+    const openModal = () => {
+      document.getElementById("rsvpName").textContent = qs.get("n") || "Invitado";
+      document.getElementById("rsvpCupos").textContent = qs.get("p") || "1";
+      modal.classList.add("open");
+    };
+
+    document.getElementById("openRsvp").onclick = openModal;
+    document.getElementById("closeRsvp").onclick = () => {
+        modal.classList.remove("open");
+        document.getElementById("statusMsg").textContent = ""; // Limpiar mensaje al cerrar
+    };
+    
+    function send() {
+      document.getElementById("statusMsg").textContent = "¡Gracias! Respuesta registrada.";
+      setTimeout(() => modal.classList.remove("open"), 2000);
+    }
+    document.getElementById("btnYes").onclick = send;
+    document.getElementById("btnNo").onclick = send;
+  </script>
+</body>
+</html>
