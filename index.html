@@ -62,7 +62,8 @@
         // --- LA CONEXIÓN MÁGICA ---
         // Esto detecta automáticamente la dirección actual y reemplaza 'admin.html' por 'index.html'
         // Si estás en local o en Netlify, funcionará igual sin cambiar nada.
-        const urlBase = window.location.href.replace('index.html', 'sobre.html', 'invitacion.html' ); 
+// Buscamos 'index.html' y lo cambiamos por 'invitacion.html' para el link del invitado
+  const urlBase = window.location.href.split('?')[0].replace('index.html', 'invitacion.html');
         
         // Creamos el link con n (nombre) y p (pases)
         const linkMagico = `${urlBase}?n=${encodeURIComponent(nombre)}&p=${pases}`;
