@@ -618,29 +618,22 @@
   </div>
 
 <script>
-  // 1. CONFIGURACIÓN DE CONEXIÓN
-  // Esta es la URL que generaste en Google Apps Script. 
-  // Asegúrate de que en "Quién tiene acceso" hayas puesto "Cualquiera".
+  // Pega aquí la URL que obtuviste al implementar en Google
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxfJj71iA2ZpjgkSae6KL45yQZgfyQpsX1zsWF4UPl99umXT_qw27seLqfgJuzskewQFg/exec";
 
-  // 2. RELOJ DE CUENTA REGRESIVA
-  // La fecha de la boda de Vilma y Josué es el 27 de junio de 2026.
-  const target = new Date("2026-06-27T18:00:00"); 
-
+  // Configuración de la cuenta regresiva
+  const target = new Date("2026-06-27T18:00:00");
   function tick(){
     const now = new Date();
     const diff = Math.max(0, Math.floor((target - now)/1000));
-    
     document.getElementById("cd-d").textContent = Math.floor(diff/86400);
     document.getElementById("cd-h").textContent = String(Math.floor((diff%86400)/3600)).padStart(2,"0");
     document.getElementById("cd-m").textContent = String(Math.floor((diff%3600)/60)).padStart(2,"0");
     document.getElementById("cd-s").textContent = String(diff%60).padStart(2,"0");
   }
-  setInterval(tick, 1000); 
-  tick();
+  setInterval(tick, 1000); tick();
 
-  // 3. LÓGICA DE INVITADOS Y MODAL
-  // Extraemos el nombre (n) y los pases (p) de la URL generada en tu panel
+  // Lógica de captura de datos de la URL
   const qs = new URLSearchParams(window.location.search);
   const modal = document.getElementById("rsvpModal");
   
@@ -651,44 +644,36 @@
   };
 
   document.getElementById("openRsvp").onclick = openModal;
-  document.getElementById("closeRsvp").onclick = () => {
-    modal.classList.remove("open");
-    document.getElementById("statusMsg").textContent = ""; 
-  };
+  document.getElementById("closeRsvp").onclick = () => modal.classList.remove("open");
 
-  // 4. ENVÍO DE DATOS A GOOGLE SHEETS
+  // FUNCIÓN DE ENVIÓ AJUSTADA A TUS COLUMNAS
   async function enviarAsistencia(respuesta) {
     const msg = document.getElementById("statusMsg");
-    msg.style.color = "var(--btn)";
     msg.textContent = "Enviando respuesta...";
     
     const datos = {
       nombre: qs.get("n") || "Invitado Desconocido",
       pases: qs.get("p") || "1",
-      asistencia: respuesta === 'si' ? "Confirmado ✅" : "Cancelado ❌"
+      asistencia: respuesta === 'si' ? "Confirmado ✅" : "Cancelado ❌",
+      enlace: window.location.href // Esto llenará la columna "Link"
     };
 
     try {
-      // Enviamos los datos a tu Apps Script usando la URL configurada arriba
       await fetch(WEB_APP_URL, {
         method: 'POST',
-        mode: 'no-cors', // Evita problemas de permisos simples del navegador
+        mode: 'no-cors',
         body: JSON.stringify(datos)
       });
       
-      msg.style.color = "#27ae60"; // Color verde de éxito
+      msg.style.color = "#27ae60";
       msg.textContent = "¡Gracias! Tu respuesta ha sido registrada.";
-      
-      // Cerramos el modal automáticamente después de 2.5 segundos
       setTimeout(() => modal.classList.remove("open"), 2500);
     } catch (error) {
-      console.error("Error:", error);
-      msg.style.color = "#e74c3c"; // Color rojo de error
-      msg.textContent = "Hubo un problema. Por favor, intenta de nuevo.";
+      msg.style.color = "#e74c3c";
+      msg.textContent = "Error al enviar. Intenta de nuevo.";
     }
   }
 
-  // 5. ASIGNACIÓN DE EVENTOS A LOS BOTONES DEL MODAL
   document.getElementById("btnYes").onclick = () => enviarAsistencia('si');
   document.getElementById("btnNo").onclick = () => enviarAsistencia('no');
 </script>
