@@ -618,10 +618,10 @@
   </div>
 
 <script>
-  // Pega aquí la URL que obtuviste al implementar en Google
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxfJj71iA2ZpjgkSae6KL45yQZgfyQpsX1zsWF4UPl99umXT_qw27seLqfgJuzskewQFg/exec";
+  // 1. TU NUEVA URL DE GOOGLE (ACTUALIZADA)
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxGiHvWTri-LEut_KlVvDkdp9aa09gWdrVloo7agYiFUj26AjAd1KPyssmGvYGtNk_wag/exec";
 
-  // Configuración de la cuenta regresiva
+  // 2. CUENTA REGRESIVA
   const target = new Date("2026-06-27T18:00:00");
   function tick(){
     const now = new Date();
@@ -633,7 +633,7 @@
   }
   setInterval(tick, 1000); tick();
 
-  // Lógica de captura de datos de la URL
+  // 3. CAPTURA DE DATOS DE LA URL
   const qs = new URLSearchParams(window.location.search);
   const modal = document.getElementById("rsvpModal");
   
@@ -646,34 +646,45 @@
   document.getElementById("openRsvp").onclick = openModal;
   document.getElementById("closeRsvp").onclick = () => modal.classList.remove("open");
 
-  // FUNCIÓN DE ENVIÓ AJUSTADA A TUS COLUMNAS
+  // 4. FUNCIÓN DE ENVÍO REFORZADA
   async function enviarAsistencia(respuesta) {
     const msg = document.getElementById("statusMsg");
+    msg.style.color = "#d4af37"; // Color dorado/tierra del botón
     msg.textContent = "Enviando respuesta...";
     
     const datos = {
       nombre: qs.get("n") || "Invitado Desconocido",
       pases: qs.get("p") || "1",
       asistencia: respuesta === 'si' ? "Confirmado ✅" : "Cancelado ❌",
-      enlace: window.location.href // Esto llenará la columna "Link"
+      enlace: window.location.href 
     };
 
     try {
+      // Enviamos a Google
       await fetch(WEB_APP_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(datos)
       });
       
+      // Si llega aquí, es que el navegador lanzó la petición con éxito
       msg.style.color = "#27ae60";
-      msg.textContent = "¡Gracias! Tu respuesta ha sido registrada.";
-      setTimeout(() => modal.classList.remove("open"), 2500);
+      msg.textContent = "¡Registrado con éxito!";
+      
+      // Esperamos 2 segundos y cerramos el modal
+      setTimeout(() => {
+        modal.classList.remove("open");
+        msg.textContent = "";
+      }, 2000);
+
     } catch (error) {
+      console.error("Error detallado:", error);
       msg.style.color = "#e74c3c";
-      msg.textContent = "Error al enviar. Intenta de nuevo.";
+      msg.textContent = "Error de conexión. Intenta de nuevo.";
     }
   }
 
+  // 5. ASIGNACIÓN DE BOTONES
   document.getElementById("btnYes").onclick = () => enviarAsistencia('si');
   document.getElementById("btnNo").onclick = () => enviarAsistencia('no');
 </script>
