@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Novios - Generador</title>
     <style>
-        body { font-family: sans-serif; background: #2c3e50; color: white; text-align: center; padding: 20px; }
-        .panel { background: #34495e; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
-        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none; }
-        button { background: #27ae60; color: white; padding: 15px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .resultado { margin-top: 20px; padding: 15px; background: #ecf0f1; color: #333; border-radius: 5px; display: none; }
-        #btnWhatsapp { background: #25D366; margin-top: 10px; text-decoration: none; display: block; color: white; padding: 10px; border-radius: 5px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #1a252f; color: white; text-align: center; padding: 20px; }
+        .panel { background: #2c3e50; padding: 30px; border-radius: 15px; max-width: 450px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #34495e; background: #1a252f; color: white; box-sizing: border-box; }
+        button { background: #27ae60; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .resultado { margin-top: 30px; padding: 20px; background: #ecf0f1; color: #2c3e50; border-radius: 10px; display: none; }
+        #linkFinal { background: #fff; color: #27ae60; border: 1px solid #bdc3c7; font-size: 14px; width: 100%; box-sizing: border-box; padding: 10px; }
+        #btnWhatsapp { background: #25D366; margin-top: 15px; text-decoration: none; display: block; color: white; padding: 12px; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <h1>Panel de Novios 👰🤵</h1>
+    
     <div class="panel">
-        <p>Crea el link para tu invitado:</p>
         <input type="text" id="nombreI" placeholder="Nombre (ej: Familia Reyes)">
         <input type="number" id="pasesI" placeholder="Número de pases">
-        
-        <button onclick="generarLink()">Generar Invitación</button>
+        <button onclick="generarLink()">Generar Invitación ✨</button>
 
         <div id="resultado" class="resultado">
             <p>Link listo para enviar:</p>
@@ -32,50 +32,30 @@
 
     <script>
         function generarLink() {
-            const nombre = document.getElementById('nombreI').value;
-            const pases = document.getElementById('pasesI').value;
+            const nombre = document.getElementById('nombreI').value.trim();
+            const pases = document.getElementById('pasesI').value.trim();
             
-            // Aquí pones el link donde subiste el index.html
-            const urlBase = "https://tu-boda.netlify.app/index.html"; 
+            if (nombre === "" || pases === "") {
+                alert("Por favor, completa los campos.");
+                return;
+            }
+
+            // --- SOLUCIÓN DEFINITIVA A LA RUTA ---
+            // Esta línea asegura que el link siempre incluya la carpeta /Bodas/
+            const urlBase = window.location.origin + window.location.pathname;
+            const urlLimpia = urlBase.replace('index.html', '');
             
-            const linkMágico = `${urlBase}?n=${encodeURIComponent(nombre)}&p=${pases}`;
+            // Forzamos que apunte a invitacion.html dentro de la carpeta actual
+            const urlFinal = urlLimpia.endsWith('/') ? urlLimpia + 'invitacion.html' : urlLimpia + '/invitacion.html';
             
-            // Mostrar resultado
+            const linkMagico = `${urlFinal}?n=${encodeURIComponent(nombre)}&p=${pases}`;
+            
             document.getElementById('resultado').style.display = 'block';
-            document.getElementById('linkFinal').value = linkMágico;
+            document.getElementById('linkFinal').value = linkMagico;
             
-            // Configurar botón de WhatsApp
-            const mensajeWS = `¡Hola ${nombre}! Queremos compartir este momento especial con ustedes. Aquí tienen su invitación: ${linkMágico}`;
+            const mensajeWS = `¡Hola ${nombre}! 👋 Aquí tienen su invitación para la boda de Josué y Vilma: ${linkMagico}`;
             document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(mensajeWS)}`;
         }
     </script>
-    <script>
-    function generarLink() {
-        const nombre = document.getElementById('nombreI').value.trim();
-        const pases = document.getElementById('pasesI').value.trim();
-        
-        if (nombre === "" || pases === "") {
-            alert("Por favor, completa el nombre y los pases.");
-            return;
-        }
-
-        // --- LA CONEXIÓN MÁGICA ---
-        // Esto detecta automáticamente la dirección actual y reemplaza 'admin.html' por 'index.html'
-        // Si estás en local o en Netlify, funcionará igual sin cambiar nada.
-        const urlBase = window.location.href.replace('index.html', 'sobre.html', 'invitacion.html' ); 
-        
-        // Creamos el link con n (nombre) y p (pases)
-        const linkMagico = `${urlBase}?n=${encodeURIComponent(nombre)}&p=${pases}`;
-        
-        // Mostrar resultado en pantalla
-        document.getElementById('resultado').style.display = 'block';
-        document.getElementById('linkFinal').value = linkMagico;
-        
-        // Configurar botón de WhatsApp con un mensaje bonito
-        const mensajeWS = `¡Hola ${nombre}! 👋 Queremos compartir este momento tan especial con ustedes. Aquí tienen su invitación digital: ${linkMagico}`;
-        
-        document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(mensajeWS)}`;
-    }
-</script>
 </body>
 </html>
