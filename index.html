@@ -5,18 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Novios - Generador</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a252f; color: white; text-align: center; padding: 20px; }
-        .panel { background: #2c3e50; padding: 30px; border-radius: 15px; max-width: 450px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #34495e; }
-        h1 { margin-bottom: 25px; font-weight: 300; }
-        label { display: block; text-align: left; margin-bottom: 5px; font-size: 14px; color: #bdc3c7; }
-        input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #34495e; background: #1a252f; color: white; font-size: 16px; box-sizing: border-box; }
-        button { background: #27ae60; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; transition: background 0.3s; }
-        button:hover { background: #2ecc71; }
-        .resultado { margin-top: 30px; padding: 20px; background: #ecf0f1; color: #2c3e50; border-radius: 10px; display: none; text-align: left; }
-        .resultado p { margin-top: 0; font-weight: bold; }
-        #linkFinal { background: #fff; color: #27ae60; border: 1px solid #bdc3c7; cursor: text; }
-        #btnWhatsapp { background: #25D366; margin-top: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; color: white; padding: 12px; border-radius: 8px; font-weight: bold; gap: 10px; }
-        #btnWhatsapp:hover { background: #1ebe57; }
+        body { font-family: 'Segoe UI', sans-serif; background: #1a252f; color: white; text-align: center; padding: 20px; }
+        .panel { background: #2c3e50; padding: 30px; border-radius: 15px; max-width: 450px; margin: 40px auto; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #34495e; background: #1a252f; color: white; box-sizing: border-box; }
+        button { background: #27ae60; color: white; padding: 15px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .resultado { margin-top: 30px; padding: 20px; background: #ecf0f1; color: #2c3e50; border-radius: 10px; display: none; }
+        #linkFinal { background: #fff; color: #27ae60; border: 1px solid #bdc3c7; }
+        #btnWhatsapp { background: #25D366; margin-top: 15px; text-decoration: none; display: block; color: white; padding: 12px; border-radius: 8px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -24,19 +19,13 @@
     <h1>Panel de Novios 👰🤵</h1>
     
     <div class="panel">
-        <p style="margin-bottom: 20px; color: #bdc3c7;">Genera los enlaces personalizados para tus invitados</p>
-        
-        <label for="nombreI">Nombre del Invitado / Familia</label>
-        <input type="text" id="nombreI" placeholder="Ej: Familia Reyes">
-        
-        <label for="pasesI">Número de Pases</label>
-        <input type="number" id="pasesI" placeholder="Ej: 5">
-        
+        <input type="text" id="nombreI" placeholder="Nombre (ej: Familia Reyes)">
+        <input type="number" id="pasesI" placeholder="Número de pases">
         <button onclick="generarLink()">Generar Invitación ✨</button>
 
         <div id="resultado" class="resultado">
-            <p>Enlace generado:</p>
-            <input type="text" id="linkFinal" readonly onclick="this.select()">
+            <p>Link listo para enviar:</p>
+            <input type="text" id="linkFinal" readonly>
             <a id="btnWhatsapp" target="_blank">Enviar por WhatsApp 📱</a>
         </div>
     </div>
@@ -47,32 +36,26 @@
             const pases = document.getElementById('pasesI').value.trim();
             
             if (nombre === "" || pases === "") {
-                alert("Por favor, completa el nombre y el número de pases.");
+                alert("Por favor, completa los campos.");
                 return;
             }
 
-            // --- LÓGICA DE DIRECCIONAMIENTO ---
-            // 1. Obtenemos la URL actual y eliminamos parámetros previos (?n=...)
-            let urlActual = window.location.href.split('?')[0];
+            // --- SOLUCIÓN AL ERROR 404 ---
+            // Obtenemos la URL actual sin parámetros
+            let urlLimpia = window.location.href.split('?')[0];
 
-            // 2. Cambiamos index.html por invitacion.html
-            // Esta lógica funciona tanto si la URL termina en / como en index.html
-            let urlDestino = "";
-            if (urlActual.includes('index.html')) {
-                urlDestino = urlActual.replace('index.html', 'invitacion.html');
-            } else {
-                urlDestino = urlActual.endsWith('/') ? urlActual + 'invitacion.html' : urlActual + '/invitacion.html';
-            }
+            // Si la URL termina en index.html, lo cambiamos por invitacion.html
+            // Si termina en /, simplemente agregamos invitacion.html
+            let urlDestino = urlLimpia.includes('index.html') 
+                ? urlLimpia.replace('index.html', 'invitacion.html') 
+                : urlLimpia.endsWith('/') ? urlLimpia + 'invitacion.html' : urlLimpia + '/invitacion.html';
             
-            // 3. Construimos el link final con los datos del invitado
             const linkMagico = `${urlDestino}?n=${encodeURIComponent(nombre)}&p=${pases}`;
             
-            // 4. Mostramos el resultado
             document.getElementById('resultado').style.display = 'block';
             document.getElementById('linkFinal').value = linkMagico;
             
-            // 5. Configuramos el mensaje de WhatsApp
-            const mensajeWS = `¡Hola ${nombre}! 👋 Queremos compartir este momento tan especial con ustedes. Aquí tienen su invitación digital: ${linkMagico}`;
+            const mensajeWS = `¡Hola ${nombre}! 👋 Aquí tienen su invitación para la boda de Josué y Vilma: ${linkMagico}`;
             document.getElementById('btnWhatsapp').href = `https://wa.me/?text=${encodeURIComponent(mensajeWS)}`;
         }
     </script>
