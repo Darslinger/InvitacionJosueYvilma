@@ -617,75 +617,93 @@
     </div>
   </div>
 <script>
-  // 1. TU NUEVA URL DE GOOGLE (ACTUALIZADA)
+  // ===============================
+  // 1. URL DE TU WEB APP (ACTUAL)
+  // ===============================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyVnrP5H_MNGbjaLq5B2itZMhiOvtUEkm8-pKSMpsHrDsSvka5XNQTh5-AiuiUIT4o67g/exec";
 
+  // ===============================
   // 2. CUENTA REGRESIVA
+  // ===============================
   const target = new Date("2026-06-27T18:00:00");
-  function tick(){
-    const now = new Date();
-    const diff = Math.max(0, Math.floor((target - now)/1000));
-    document.getElementById("cd-d").textContent = Math.floor(diff/86400);
-    document.getElementById("cd-h").textContent = String(Math.floor((diff%86400)/3600)).padStart(2,"0");
-    document.getElementById("cd-m").textContent = String(Math.floor((diff%3600)/60)).padStart(2,"0");
-    document.getElementById("cd-s").textContent = String(diff%60).padStart(2,"0");
-  }
-  setInterval(tick, 1000); tick();
 
-  // 3. CAPTURA DE DATOS DE LA URL
+  function tick() {
+    const now = new Date();
+    const diff = Math.max(0, Math.floor((target - now) / 1000));
+
+    document.getElementById("cd-d").textContent = Math.floor(diff / 86400);
+    document.getElementById("cd-h").textContent = String(Math.floor((diff % 86400) / 3600)).padStart(2, "0");
+    document.getElementById("cd-m").textContent = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
+    document.getElementById("cd-s").textContent = String(diff % 60).padStart(2, "0");
+  }
+
+  setInterval(tick, 1000);
+  tick();
+
+  // ===============================
+  // 3. CAPTURA DE DATOS DESDE URL
+  // ===============================
   const qs = new URLSearchParams(window.location.search);
   const modal = document.getElementById("rsvpModal");
-  
-  const openModal = () => {
+
+  function openModal() {
     document.getElementById("rsvpName").textContent = qs.get("n") || "Invitado";
     document.getElementById("rsvpCupos").textContent = qs.get("p") || "1";
     modal.classList.add("open");
-  };
+  }
 
   document.getElementById("openRsvp").onclick = openModal;
   document.getElementById("closeRsvp").onclick = () => modal.classList.remove("open");
 
-  // 4. FUNCIÓN DE ENVÍO REFORZADA
+  // ===============================
+  // 4. ENVÍO A GOOGLE SHEETS
+  // ===============================
   async function enviarAsistencia(respuesta) {
     const msg = document.getElementById("statusMsg");
-    msg.style.color = "#d4af37"; // Color dorado/tierra del botón
+
+    msg.style.color = "#d4af37";
     msg.textContent = "Enviando respuesta...";
-    
+
     const datos = {
       nombre: qs.get("n") || "Invitado Desconocido",
       pases: qs.get("p") || "1",
-      asistencia: respuesta === 'si' ? "Confirmado ✅" : "Cancelado ❌",
-      enlace: window.location.href 
+      asistencia: respuesta === "si" ? "Confirmado ✅" : "Cancelado ❌",
+      enlace: window.location.href
     };
 
     try {
-      // Enviamos a Google
-      await fetch(WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+      const response = await fetch(WEB_APP_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(datos)
       });
-      
-      // Si llega aquí, es que el navegador lanzó la petición con éxito
+
+      // Leer respuesta del servidor (para depuración)
+      const result = await response.text();
+      console.log("Respuesta del servidor:", result);
+
       msg.style.color = "#27ae60";
       msg.textContent = "¡Registrado con éxito!";
-      
-      // Esperamos 2 segundos y cerramos el modal
+
       setTimeout(() => {
         modal.classList.remove("open");
         msg.textContent = "";
       }, 2000);
 
     } catch (error) {
-      console.error("Error detallado:", error);
+      console.error("Error real:", error);
       msg.style.color = "#e74c3c";
       msg.textContent = "Error de conexión. Intenta de nuevo.";
     }
   }
 
-  // 5. ASIGNACIÓN DE BOTONES
-  document.getElementById("btnYes").onclick = () => enviarAsistencia('si');
-  document.getElementById("btnNo").onclick = () => enviarAsistencia('no');
+  // ===============================
+  // 5. BOTONES
+  // ===============================
+  document.getElementById("btnYes").onclick = () => enviarAsistencia("si");
+  document.getElementById("btnNo").onclick = () => enviarAsistencia("no");
 </script>
 
 </body>
