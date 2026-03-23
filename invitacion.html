@@ -658,7 +658,7 @@
   // ===============================
   // 4. ENVÍO A GOOGLE SHEETS
   // ===============================
- async function enviarAsistencia(respuesta) {
+async function enviarAsistencia(respuesta) {
   const msg = document.getElementById("statusMsg");
 
   msg.style.color = "#d4af37";
@@ -672,24 +672,24 @@
   };
 
   try {
-    const response = await fetch(WEB_APP_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+    await fetch(WEB_APP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
       body: JSON.stringify(datos)
     });
 
-    const text = await response.text();
-    console.log("Respuesta real del servidor:", text);
-
+    // IMPORTANTE: aquí asumimos envío, no confirmación real
     msg.style.color = "#27ae60";
-    msg.textContent = "¡Registrado con éxito REAL!";
+    msg.textContent = "Enviado ✔ (verificando...)";
+
+    setTimeout(() => {
+      msg.textContent = "Si no aparece en la lista, revisa configuración.";
+    }, 2000);
 
   } catch (error) {
-    console.error("Error real:", error);
+    console.error(error);
     msg.style.color = "#e74c3c";
-    msg.textContent = "Error de conexión real.";
+    msg.textContent = "Error de conexión.";
   }
 }
 
