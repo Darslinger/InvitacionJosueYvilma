@@ -658,43 +658,40 @@
   // ===============================
   // 4. ENVÍO A GOOGLE SHEETS
   // ===============================
-  async function enviarAsistencia(respuesta) {
-    const msg = document.getElementById("statusMsg");
+ async function enviarAsistencia(respuesta) {
+  const msg = document.getElementById("statusMsg");
 
-    msg.style.color = "#d4af37";
-    msg.textContent = "Enviando respuesta...";
+  msg.style.color = "#d4af37";
+  msg.textContent = "Enviando respuesta...";
 
-    const datos = {
-      nombre: qs.get("n") || "Invitado Desconocido",
-      pases: qs.get("p") || "1",
-      asistencia: respuesta === "si" ? "Confirmado ✅" : "Cancelado ❌",
-      enlace: window.location.href
-    };
+  const datos = {
+    nombre: qs.get("n") || "Invitado Desconocido",
+    pases: qs.get("p") || "1",
+    asistencia: respuesta === "si" ? "Confirmado ✅" : "Cancelado ❌",
+    enlace: window.location.href
+  };
 
-    try {
-      await fetch(WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors', // IMPORTANTE
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: JSON.stringify(datos)
-      });
+  try {
+    const response = await fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(datos)
+    });
 
-      msg.style.color = "#27ae60";
-      msg.textContent = "¡Registrado con éxito!";
+    const text = await response.text();
+    console.log("Respuesta real del servidor:", text);
 
-      setTimeout(() => {
-        modal.classList.remove("open");
-        msg.textContent = "";
-      }, 2000);
+    msg.style.color = "#27ae60";
+    msg.textContent = "¡Registrado con éxito REAL!";
 
-    } catch (error) {
-      console.error("Error:", error);
-      msg.style.color = "#e74c3c";
-      msg.textContent = "Error de conexión. Intenta de nuevo.";
-    }
+  } catch (error) {
+    console.error("Error real:", error);
+    msg.style.color = "#e74c3c";
+    msg.textContent = "Error de conexión real.";
   }
+}
 
   // ===============================
   // 5. BOTONES
