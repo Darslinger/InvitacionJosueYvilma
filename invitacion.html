@@ -618,6 +618,7 @@
   </div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZQvjAeF1GgQr2RBQKzowFN_b8VJpI4evqEKFnp5gFyNyiC8QfmR853zVcHCmNB--a/exec";
 
   const qs = new URLSearchParams(window.location.search);
@@ -644,6 +645,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function enviarAsistencia(respuesta) {
+
     const datos = {
       nombre: qs.get("n") || "Invitado",
       pases: qs.get("p") || "1",
@@ -659,35 +661,27 @@ document.addEventListener("DOMContentLoaded", function () {
       "&enlace=" + encodeURIComponent(datos.enlace) +
       "&t=" + Date.now();
 
-    console.log("ENVIANDO URL:", url);
+    console.log("ENVIANDO:", url);
 
-    const img = new Image();
-    img.onload = function () {
-      if (msg) {
-        msg.style.color = "#27ae60";
-        msg.textContent = "Confirmación enviada ✔";
-      }
+    // 🔥 MÉTODO QUE NO FALLA
+    window.open(url, "_blank");
 
-      setTimeout(() => {
-        closeModal();
-        if (msg) msg.textContent = "";
-      }, 2000);
-    };
+    if (msg) {
+      msg.style.color = "#27ae60";
+      msg.textContent = "Confirmación enviada ✔";
+    }
 
-    img.onerror = function () {
-      if (msg) {
-        msg.style.color = "#e74c3c";
-        msg.textContent = "Error al enviar";
-      }
-    };
-
-    img.src = url;
+    setTimeout(() => {
+      closeModal();
+      if (msg) msg.textContent = "";
+    }, 2000);
   }
 
   if (btnOpen) btnOpen.addEventListener("click", openModal);
   if (btnClose) btnClose.addEventListener("click", closeModal);
   if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
   if (btnNo) btnNo.addEventListener("click", () => enviarAsistencia("no"));
+
 });
 </script>
 
