@@ -617,44 +617,28 @@
     </div>
   </div>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+
   // ===============================
-  // 1. URL DE GOOGLE APPS SCRIPT
+  // 1. URL DE TU APPS SCRIPT
   // ===============================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwC6QlqSPk3drukNB9JfBk55wH7aIAhFPyQAKJAfrX6Svjs2BJQoRU3dvh62Jkbz14/exec";
 
   // ===============================
-  // 2. CUENTA REGRESIVA
-  // ===============================
-  const target = new Date("2026-06-27T18:00:00");
-
-  function tick() {
-    const now = new Date();
-    const diff = Math.max(0, Math.floor((target - now) / 1000));
-
-    const cdD = document.getElementById("cd-d");
-    const cdH = document.getElementById("cd-h");
-    const cdM = document.getElementById("cd-m");
-    const cdS = document.getElementById("cd-s");
-
-    if (cdD) cdD.textContent = Math.floor(diff / 86400);
-    if (cdH) cdH.textContent = String(Math.floor((diff % 86400) / 3600)).padStart(2, "0");
-    if (cdM) cdM.textContent = String(Math.floor((diff % 3600) / 60)).padStart(2, "0");
-    if (cdS) cdS.textContent = String(diff % 60).padStart(2, "0");
-  }
-
-  setInterval(tick, 1000);
-  tick();
-
-  // ===============================
-  // 3. DATOS DE LA URL
+  // 2. CAPTURA DE DATOS DE LA URL
   // ===============================
   const qs = new URLSearchParams(window.location.search);
+
   const modal = document.getElementById("rsvpModal");
   const btnOpen = document.getElementById("openRsvp");
   const btnClose = document.getElementById("closeRsvp");
   const btnYes = document.getElementById("btnYes");
   const btnNo = document.getElementById("btnNo");
+  const msg = document.getElementById("statusMsg");
 
+  // ===============================
+  // 3. ABRIR MODAL
+  // ===============================
   function openModal() {
     const nameEl = document.getElementById("rsvpName");
     const cuposEl = document.getElementById("rsvpCupos");
@@ -662,30 +646,17 @@
     if (nameEl) nameEl.textContent = qs.get("n") || "Invitado";
     if (cuposEl) cuposEl.textContent = qs.get("p") || "1";
 
-    if (modal) {
-      modal.classList.add("open");
-    }
+    if (modal) modal.classList.add("open");
   }
 
   function closeModal() {
-    if (modal) {
-      modal.classList.remove("open");
-    }
+    if (modal) modal.classList.remove("open");
   }
 
-  if (btnOpen) btnOpen.onclick = openModal;
-  if (btnClose) btnClose.onclick = closeModal;
-
   // ===============================
-  // 4. ENVIAR ASISTENCIA
+  // 4. ENVIAR DATOS A GOOGLE SHEETS
   // ===============================
-  async function enviarAsistencia(respuesta) {
-    const msg = document.getElementById("statusMsg");
-
-    if (msg) {
-      msg.style.color = "#d4af37";
-      msg.textContent = "Enviando...";
-    }
+  function enviarAsistencia(respuesta) {
 
     const datos = {
       nombre: qs.get("n") || "Invitado",
@@ -694,44 +665,40 @@
       enlace: window.location.href
     };
 
-    console.log("ENVIANDO DATOS:", datos);
+    console.log("ENVIANDO:", datos);
 
-    try {
-      fetch(WEB_APP_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(datos)
-      });
+    fetch(WEB_APP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(datos)
+    });
 
-      if (msg) {
-        msg.style.color = "#27ae60";
-        msg.textContent = "Confirmación enviada ✔";
-      }
-
-      setTimeout(() => {
-        closeModal();
-        if (msg) msg.textContent = "";
-      }, 2000);
-
-    } catch (error) {
-      console.error("Error al enviar:", error);
-      if (msg) {
-        msg.style.color = "#e74c3c";
-        msg.textContent = "Error al enviar";
-      }
+    if (msg) {
+      msg.style.color = "#27ae60";
+      msg.textContent = "Confirmación enviada ✔";
     }
+
+    setTimeout(() => {
+      closeModal();
+      if (msg) msg.textContent = "";
+    }, 2000);
   }
 
   // ===============================
-  // 5. BOTONES SI / NO
+  // 5. EVENTOS DE BOTONES
   // ===============================
+  if (btnOpen) btnOpen.addEventListener("click", openModal);
+  if (btnClose) btnClose.addEventListener("click", closeModal);
+
   if (btnYes) {
-    btnYes.onclick = () => enviarAsistencia("si");
+    btnYes.addEventListener("click", () => enviarAsistencia("si"));
   }
 
   if (btnNo) {
-    btnNo.onclick = () => enviarAsistencia("no");
+    btnNo.addEventListener("click", () => enviarAsistencia("no"));
   }
+
+});
 </script>
 
 </body>
