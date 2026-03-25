@@ -619,7 +619,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxPSZoyHkJGp5DBIF9f-NGrgZFe-AH8eRjsdoSjReMSAvhg0SxshDpIK3yQ4qJcTP6L/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbynNJJ-ZtbPiuWUwcGjnZ0_7ptKtxxgpiBcWW69PckUDTe6_887k9WifQOLMeg4kg/exec";
 
   const qs = new URLSearchParams(window.location.search);
 
@@ -644,45 +644,58 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modal) modal.classList.remove("open");
   }
 
-  function enviarAsistencia(respuesta) {
+ function enviarAsistencia(respuesta) {
+  const datos = {
+    nombre: qs.get("n") || "Invitado",
+    pases: qs.get("p") || "1",
+    asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
+    enlace: window.location.href
+  };
 
-    const datos = {
-      nombre: qs.get("n") || "Invitado",
-      pases: qs.get("p") || "1",
-      asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
-      enlace: window.location.href
-    };
+  const url =
+    WEB_APP_URL +
+    "?nombre=" + encodeURIComponent(datos.nombre) +
+    "&pases=" + encodeURIComponent(datos.pases) +
+    "&asistencia=" + encodeURIComponent(datos.asistencia) +
+    "&enlace=" + encodeURIComponent(datos.enlace) +
+    "&t=" + Date.now();
 
-    const url =
-      WEB_APP_URL +
-      "?nombre=" + encodeURIComponent(datos.nombre) +
-      "&pases=" + encodeURIComponent(datos.pases) +
-      "&asistencia=" + encodeURIComponent(datos.asistencia) +
-      "&enlace=" + encodeURIComponent(datos.enlace) +
-      "&t=" + Date.now();
+  const msg = document.getElementById("statusMsg");
 
-    console.log("ENVIANDO:", url);
+  // 🔥 Usamos iframe oculto para recibir respuesta
+  const iframe = document.createElement("iframe");
+  iframe.style.display = "none";
+  iframe.src = url;
 
-    // 🔥 MÉTODO QUE NO FALLA
-    window.open(url, "_blank");
+  iframe.onload = function () {
+    try {
+      const response = iframe.contentDocument.body.innerText;
 
-    if (msg) {
-      msg.style.color = "#27ae60";
-      msg.textContent = "Confirmación enviada ✔";
+      if (response.includes("GUARDADO")) {
+        msg.style.color = "#27ae60";
+        msg.textContent = "Confirmación enviada ✔";
+      } 
+      else if (response.includes("YA_REGISTRADO")) {
+        msg.style.color = "#e67e22";
+        msg.textContent = "Ya habías confirmado anteriormente";
+      } 
+      else {
+        msg.style.color = "#e74c3c";
+        msg.textContent = "Error al enviar";
+      }
+
+    } catch (e) {
+      msg.style.color = "#e74c3c";
+      msg.textContent = "Error de conexión";
     }
 
     setTimeout(() => {
-      closeModal();
-      if (msg) msg.textContent = "";
-    }, 2000);
-  }
+      iframe.remove();
+    }, 1000);
+  };
 
-  if (btnOpen) btnOpen.addEventListener("click", openModal);
-  if (btnClose) btnClose.addEventListener("click", closeModal);
-  if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
-  if (btnNo) btnNo.addEventListener("click", () => enviarAsistencia("no"));
-
-});
+  document.body.appendChild(iframe);
+}
 </script>
 
 </body>
