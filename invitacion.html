@@ -471,15 +471,15 @@
       </div>
     </section>
 
-    <section class="countSec">
-      <div class="countNum" style="font-family: var(--serif); font-size: 1.2rem;">Faltan</div>
-      <div class="countRow">
-        <div class="countItem"><div class="countNum" id="cd-d">000</div><div class="countLab">Días</div></div>
-        <div class="countItem"><div class="countNum" id="cd-h">00</div><div class="countLab">Horas</div></div>
-        <div class="countItem"><div class="countNum" id="cd-m">00</div><div class="countLab">Min</div></div>
-        <div class="countItem"><div class="countNum" id="cd-s">00</div><div class="countLab">Seg</div></div>
-      </div>
-    </section>
+   <section class="countSec">
+  <div class="countNum" style="font-family: var(--serif); font-size: 1.2rem;">Faltan</div>
+  <div class="countRow">
+    <div class="countItem"><div class="countNum" id="days">000</div><div class="countLab">Días</div></div>
+    <div class="countItem"><div class="countNum" id="hours">00</div><div class="countLab">Horas</div></div>
+    <div class="countItem"><div class="countNum" id="minutes">00</div><div class="countLab">Min</div></div>
+    <div class="countItem"><div class="countNum" id="seconds">00</div><div class="countLab">Seg</div></div>
+  </div>
+</section>
 
     <section class="bigDay">
       <h3>Reserva la fecha</h3>
@@ -620,12 +620,12 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  // ===============================
+ // ===============================
   // 1. LÓGICA DEL CONTADOR
   // ===============================
   const fechaBoda = new Date('June 27, 2026 00:00:00').getTime();
 
-  const countdown = setInterval(() => {
+  function actualizarReloj() {
     const ahora = new Date().getTime();
     const distancia = fechaBoda - ahora;
 
@@ -634,18 +634,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-    // Actualiza los números en tu HTML
-    if (document.getElementById("days")) document.getElementById("days").innerText = dias.toString().padStart(3, '0');
-    if (document.getElementById("hours")) document.getElementById("hours").innerText = horas.toString().padStart(2, '0');
-    if (document.getElementById("minutes")) document.getElementById("minutes").innerText = minutos.toString().padStart(2, '0');
-    if (document.getElementById("seconds")) document.getElementById("seconds").innerText = segundos.toString().padStart(2, '0');
+    // Actualiza los números usando los IDs del HTML
+    const dEl = document.getElementById("days");
+    const hEl = document.getElementById("hours");
+    const mEl = document.getElementById("minutes");
+    const sEl = document.getElementById("seconds");
+
+    if (dEl) dEl.innerText = dias.toString().padStart(3, '0');
+    if (hEl) hEl.innerText = horas.toString().padStart(2, '0');
+    if (mEl) mEl.innerText = minutos.toString().padStart(2, '0');
+    if (sEl) sEl.innerText = segundos.toString().padStart(2, '0');
 
     if (distancia < 0) {
       clearInterval(countdown);
-      const faltanElement = document.querySelector(".faltan");
-      if (faltanElement) faltanElement.innerText = "¡Llegó el gran día!";
+      const row = document.querySelector(".countRow");
+      if (row) row.innerHTML = "<div class='countNum'>¡Hoy es el gran día!</div>";
     }
-  }, 1000);
+  }
+
+  // Ejecutar cada segundo
+  const countdown = setInterval(actualizarReloj, 1000);
+  actualizarReloj(); // Ejecución inmediata para evitar el 00 inicial
 
   // ===============================
   // 2. LÓGICA DE MÚSICA - FONSECA
