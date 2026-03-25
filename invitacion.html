@@ -616,13 +616,73 @@
       <div id="statusMsg" style="margin-top: 20px; font-weight: 700; color: var(--btn);"></div>
     </div>
   </div>
+  
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+  // ===============================
+  // LÓGICA DE MÚSICA - FONSECA
+  // ===============================
+  
+  // 1. Crear el elemento de audio
+  const audio = new Audio('Fonseca - Que Suerte Tenerte (Audio).mp3');
+  audio.loop = true;
+  audio.volume = 0.6;
+
+  // 2. Crear el botón flotante
+  const musicBtn = document.createElement('button');
+  musicBtn.innerHTML = '🎵';
+  musicBtn.style.cssText = `
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 9999;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #b89c7d;
+    color: white;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  `;
+  document.body.appendChild(musicBtn);
+
+  // 3. Función para iniciar música
+  function iniciarMusica() {
+    audio.play().then(() => {
+      musicBtn.innerHTML = '🔊';
+      window.removeEventListener('click', iniciarMusica);
+      window.removeEventListener('touchstart', iniciarMusica);
+    }).catch(e => console.log("Esperando interacción..."));
+  }
+
+  window.addEventListener('click', iniciarMusica);
+  window.addEventListener('touchstart', iniciarMusica);
+
+  musicBtn.onclick = (e) => {
+    e.stopPropagation();
+    if (audio.paused) {
+      audio.play();
+      musicBtn.innerHTML = '🔊';
+      musicBtn.style.background = '#b89c7d';
+    } else {
+      audio.pause();
+      musicBtn.innerHTML = '🔇';
+      musicBtn.style.background = '#7f94c4';
+    }
+  };
+
+  // ===============================
+  // LÓGICA DE REGISTRO (GOOGLE SHEETS)
+  // ===============================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbynNJJ-ZtbPiuWUwcGjnZ0_7ptKtxxgpiBcWW69PckUDTe6_887k9WifQOLMeg4kg/exec";
-
   const qs = new URLSearchParams(window.location.search);
-
   const modal = document.getElementById("rsvpModal");
   const btnOpen = document.getElementById("openRsvp");
   const btnClose = document.getElementById("closeRsvp");
@@ -630,43 +690,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnNo = document.getElementById("btnNo");
   const msg = document.getElementById("statusMsg");
 
-  // 🔒 CLAVE ÚNICA POR INVITADO
   const invitadoKey = "rsvp_" + (qs.get("n") || "invitado");
 
-  // ===============================
-  // ABRIR MODAL
-  // ===============================
   function openModal() {
     const nameEl = document.getElementById("rsvpName");
     const cuposEl = document.getElementById("rsvpCupos");
-
     if (nameEl) nameEl.textContent = qs.get("n") || "Invitado";
     if (cuposEl) cuposEl.textContent = qs.get("p") || "1";
-
     if (modal) modal.classList.add("open");
   }
 
-  // ===============================
-  // CERRAR MODAL
-  // ===============================
   function closeModal() {
     if (modal) modal.classList.remove("open");
   }
 
-  // ===============================
-  // ENVIAR ASISTENCIA
-  // ===============================
   function enviarAsistencia(respuesta) {
-
-    // 🔒 VALIDAR SI YA RESPONDIÓ
     if (localStorage.getItem(invitadoKey)) {
       msg.style.color = "#e67e22";
       msg.textContent = "Ya registraste tu respuesta, no puedes repetirla";
-
-      setTimeout(() => {
-        msg.textContent = "";
-      }, 5000);
-
       return;
     }
 
@@ -677,40 +718,27 @@ document.addEventListener("DOMContentLoaded", function () {
       enlace: window.location.href
     };
 
-    const url =
-      WEB_APP_URL +
+    const url = WEB_APP_URL +
       "?nombre=" + encodeURIComponent(datos.nombre) +
       "&pases=" + encodeURIComponent(datos.pases) +
       "&asistencia=" + encodeURIComponent(datos.asistencia) +
       "&enlace=" + encodeURIComponent(datos.enlace) +
       "&t=" + Date.now();
 
-    // 🔥 Guardar en Google Sheets
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
     iframe.src = url;
     document.body.appendChild(iframe);
 
-    // 🔒 GUARDAR EN LOCAL (bloqueo)
     localStorage.setItem(invitadoKey, respuesta);
-
-    // ✅ MENSAJE
     msg.style.color = "#27ae60";
     msg.textContent = "Respuesta enviada correctamente ✔";
-
-    // 🔒 BLOQUEAR BOTONES
     btnYes.disabled = true;
     btnNo.disabled = true;
 
-    // ⏳ QUITAR MENSAJE EN 5 SEGUNDOS
-    setTimeout(() => {
-      msg.textContent = "";
-    }, 5000);
+    setTimeout(() => { msg.textContent = ""; }, 5000);
   }
 
-  // ===============================
-  // EVENTOS
-  // ===============================
   if (btnOpen) btnOpen.addEventListener("click", openModal);
   if (btnClose) btnClose.addEventListener("click", closeModal);
   if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
