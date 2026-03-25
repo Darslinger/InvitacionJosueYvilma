@@ -630,6 +630,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnNo = document.getElementById("btnNo");
   const msg = document.getElementById("statusMsg");
 
+  // ===============================
+  // ABRIR MODAL
+  // ===============================
   function openModal() {
     const nameEl = document.getElementById("rsvpName");
     const cuposEl = document.getElementById("rsvpCupos");
@@ -640,62 +643,79 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modal) modal.classList.add("open");
   }
 
+  // ===============================
+  // CERRAR MODAL
+  // ===============================
   function closeModal() {
     if (modal) modal.classList.remove("open");
   }
 
- function enviarAsistencia(respuesta) {
-  const datos = {
-    nombre: qs.get("n") || "Invitado",
-    pases: qs.get("p") || "1",
-    asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
-    enlace: window.location.href
-  };
+  // ===============================
+  // ENVIAR ASISTENCIA
+  // ===============================
+  function enviarAsistencia(respuesta) {
 
-  const url =
-    WEB_APP_URL +
-    "?nombre=" + encodeURIComponent(datos.nombre) +
-    "&pases=" + encodeURIComponent(datos.pases) +
-    "&asistencia=" + encodeURIComponent(datos.asistencia) +
-    "&enlace=" + encodeURIComponent(datos.enlace) +
-    "&t=" + Date.now();
+    const datos = {
+      nombre: qs.get("n") || "Invitado",
+      pases: qs.get("p") || "1",
+      asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
+      enlace: window.location.href
+    };
 
-  const msg = document.getElementById("statusMsg");
+    const url =
+      WEB_APP_URL +
+      "?nombre=" + encodeURIComponent(datos.nombre) +
+      "&pases=" + encodeURIComponent(datos.pases) +
+      "&asistencia=" + encodeURIComponent(datos.asistencia) +
+      "&enlace=" + encodeURIComponent(datos.enlace) +
+      "&t=" + Date.now();
 
-  // 🔥 Usamos iframe oculto para recibir respuesta
-  const iframe = document.createElement("iframe");
-  iframe.style.display = "none";
-  iframe.src = url;
+    console.log("ENVIANDO:", url);
 
-  iframe.onload = function () {
-    try {
-      const response = iframe.contentDocument.body.innerText;
+    // 🔥 iframe oculto (mejor método)
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = url;
 
-      if (response.includes("GUARDADO")) {
-        msg.style.color = "#27ae60";
-        msg.textContent = "Confirmación enviada ✔";
-      } 
-      else if (response.includes("YA_REGISTRADO")) {
-        msg.style.color = "#e67e22";
-        msg.textContent = "Ya habías confirmado anteriormente";
-      } 
-      else {
+    iframe.onload = function () {
+      try {
+        const response = iframe.contentDocument.body.innerText;
+
+        if (response.includes("GUARDADO")) {
+          msg.style.color = "#27ae60";
+          msg.textContent = "Confirmación enviada ✔";
+        } 
+        else if (response.includes("YA_REGISTRADO")) {
+          msg.style.color = "#e67e22";
+          msg.textContent = "Ya habías confirmado anteriormente";
+        } 
+        else {
+          msg.style.color = "#e74c3c";
+          msg.textContent = "Error al enviar";
+        }
+
+      } catch (e) {
         msg.style.color = "#e74c3c";
-        msg.textContent = "Error al enviar";
+        msg.textContent = "Error de conexión";
       }
 
-    } catch (e) {
-      msg.style.color = "#e74c3c";
-      msg.textContent = "Error de conexión";
-    }
+      setTimeout(() => {
+        iframe.remove();
+      }, 1000);
+    };
 
-    setTimeout(() => {
-      iframe.remove();
-    }, 1000);
-  };
+    document.body.appendChild(iframe);
+  }
 
-  document.body.appendChild(iframe);
-}
+  // ===============================
+  // EVENTOS
+  // ===============================
+  if (btnOpen) btnOpen.addEventListener("click", openModal);
+  if (btnClose) btnClose.addEventListener("click", closeModal);
+  if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
+  if (btnNo) btnNo.addEventListener("click", () => enviarAsistencia("no"));
+
+});
 </script>
 
 </body>
