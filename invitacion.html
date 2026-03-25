@@ -618,15 +618,8 @@
   </div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
-  // ===============================
-  // 1. URL DE TU APPS SCRIPT
-  // ===============================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwC6QlqSPk3drukNB9JfBk55wH7aIAhFPyQAKJAfrX6Svjs2BJQoRU3dvh62Jkbz14/exec";
 
-  // ===============================
-  // 2. CAPTURA DE DATOS DE LA URL
-  // ===============================
   const qs = new URLSearchParams(window.location.search);
 
   const modal = document.getElementById("rsvpModal");
@@ -636,9 +629,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnNo = document.getElementById("btnNo");
   const msg = document.getElementById("statusMsg");
 
-  // ===============================
-  // 3. ABRIR MODAL
-  // ===============================
   function openModal() {
     const nameEl = document.getElementById("rsvpName");
     const cuposEl = document.getElementById("rsvpCupos");
@@ -653,11 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modal) modal.classList.remove("open");
   }
 
-  // ===============================
-  // 4. ENVIAR DATOS A GOOGLE SHEETS
-  // ===============================
   function enviarAsistencia(respuesta) {
-
     const datos = {
       nombre: qs.get("n") || "Invitado",
       pases: qs.get("p") || "1",
@@ -665,39 +651,43 @@ document.addEventListener("DOMContentLoaded", function () {
       enlace: window.location.href
     };
 
-    console.log("ENVIANDO:", datos);
+    const url =
+      WEB_APP_URL +
+      "?nombre=" + encodeURIComponent(datos.nombre) +
+      "&pases=" + encodeURIComponent(datos.pases) +
+      "&asistencia=" + encodeURIComponent(datos.asistencia) +
+      "&enlace=" + encodeURIComponent(datos.enlace) +
+      "&t=" + Date.now();
 
-    fetch(WEB_APP_URL, {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify(datos)
-    });
+    console.log("ENVIANDO URL:", url);
 
-    if (msg) {
-      msg.style.color = "#27ae60";
-      msg.textContent = "Confirmación enviada ✔";
-    }
+    const img = new Image();
+    img.onload = function () {
+      if (msg) {
+        msg.style.color = "#27ae60";
+        msg.textContent = "Confirmación enviada ✔";
+      }
 
-    setTimeout(() => {
-      closeModal();
-      if (msg) msg.textContent = "";
-    }, 2000);
+      setTimeout(() => {
+        closeModal();
+        if (msg) msg.textContent = "";
+      }, 2000);
+    };
+
+    img.onerror = function () {
+      if (msg) {
+        msg.style.color = "#e74c3c";
+        msg.textContent = "Error al enviar";
+      }
+    };
+
+    img.src = url;
   }
 
-  // ===============================
-  // 5. EVENTOS DE BOTONES
-  // ===============================
   if (btnOpen) btnOpen.addEventListener("click", openModal);
   if (btnClose) btnClose.addEventListener("click", closeModal);
-
-  if (btnYes) {
-    btnYes.addEventListener("click", () => enviarAsistencia("si"));
-  }
-
-  if (btnNo) {
-    btnNo.addEventListener("click", () => enviarAsistencia("no"));
-  }
-
+  if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
+  if (btnNo) btnNo.addEventListener("click", () => enviarAsistencia("no"));
 });
 </script>
 
