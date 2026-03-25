@@ -447,7 +447,7 @@
         <div class="heroInner">
           <div class="heroKicker">Con la bendición de Dios</div>
           <h1 class="heroTitle">¡Nos casamos!</h1>
-          <div class="heroNames">Vilma & Josué</div>
+          <div class="heroNames">Josué & Vilma</div>
           <p class="heroDate">Sábado 27 de junio · 2026</p>
         </div>
       </div>
@@ -457,9 +457,9 @@
       <div class="inv-card-frame">
         <div class="inv-paper">
           <div class="inv-inner-content">
-            <p class="inv-parents">Junto a nuestros padres e hijos,<br>tenemos el placer de invitarles a nuestra boda</p>
+            <p class="inv-parents">Junto a nuestros padres ,<br>tenemos el placer de invitarles a nuestra boda</p>
             <p class="inv-label-premium"><span class="gold-text">Invitación</span> a la boda de</p>
-            <h2 class="inv-names-script">Vilma & Josué</h2>
+            <h2 class="inv-names-script">Josué & Vilma</h2>
             <p class="inv-serif-text">Tenemos el honor de invitarte a celebrar nuestra unión</p>
             <div class="inv-date-premium">
               <span>SÁBADO</span>
@@ -621,15 +621,39 @@
 document.addEventListener("DOMContentLoaded", function () {
 
   // ===============================
-  // LÓGICA DE MÚSICA - FONSECA
+  // 1. LÓGICA DEL CONTADOR
   // ===============================
-  
-  // 1. Crear el elemento de audio
+  const fechaBoda = new Date('June 27, 2026 00:00:00').getTime();
+
+  const countdown = setInterval(() => {
+    const ahora = new Date().getTime();
+    const distancia = fechaBoda - ahora;
+
+    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    // Actualiza los números en tu HTML
+    if (document.getElementById("days")) document.getElementById("days").innerText = dias.toString().padStart(3, '0');
+    if (document.getElementById("hours")) document.getElementById("hours").innerText = horas.toString().padStart(2, '0');
+    if (document.getElementById("minutes")) document.getElementById("minutes").innerText = minutos.toString().padStart(2, '0');
+    if (document.getElementById("seconds")) document.getElementById("seconds").innerText = segundos.toString().padStart(2, '0');
+
+    if (distancia < 0) {
+      clearInterval(countdown);
+      const faltanElement = document.querySelector(".faltan");
+      if (faltanElement) faltanElement.innerText = "¡Llegó el gran día!";
+    }
+  }, 1000);
+
+  // ===============================
+  // 2. LÓGICA DE MÚSICA - FONSECA
+  // ===============================
   const audio = new Audio('Fonseca - Que Suerte Tenerte (Audio).mp3');
   audio.loop = true;
   audio.volume = 0.6;
 
-  // 2. Crear el botón flotante
   const musicBtn = document.createElement('button');
   musicBtn.innerHTML = '🎵';
   musicBtn.style.cssText = `
@@ -653,7 +677,6 @@ document.addEventListener("DOMContentLoaded", function () {
   `;
   document.body.appendChild(musicBtn);
 
-  // 3. Función para iniciar música
   function iniciarMusica() {
     audio.play().then(() => {
       musicBtn.innerHTML = '🔊';
@@ -679,7 +702,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // ===============================
-  // LÓGICA DE REGISTRO (GOOGLE SHEETS)
+  // 3. LÓGICA DE REGISTRO (GOOGLE SHEETS)
   // ===============================
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbynNJJ-ZtbPiuWUwcGjnZ0_7ptKtxxgpiBcWW69PckUDTe6_887k9WifQOLMeg4kg/exec";
   const qs = new URLSearchParams(window.location.search);
