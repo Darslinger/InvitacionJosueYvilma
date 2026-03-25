@@ -620,7 +620,7 @@
   // ===============================
   // 1. URL DE GOOGLE APPS SCRIPT
   // ===============================
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySTGV-mhqGLDiaMOwa7LGoTdpE3wxp8JmwMyYkqV9eqT3YS6Xr8kmNgcup4Put-eAcEQ/exec";
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzwC6QlqSPk3drukNB9JfBk55wH7aIAhFPyQAKJAfrX6Svjs2BJQoRU3dvh62Jkbz14/exec";
 
   // ===============================
   // 2. CUENTA REGRESIVA
@@ -658,40 +658,40 @@
   // ===============================
   // 4. ENVÍO A GOOGLE SHEETS
   // ===============================
-async function enviarAsistencia(respuesta) {
-  const msg = document.getElementById("statusMsg");
+  async function enviarAsistencia(respuesta) {
+    const msg = document.getElementById("statusMsg");
 
-  msg.style.color = "#d4af37";
-  msg.textContent = "Enviando respuesta...";
+    msg.style.color = "#d4af37";
+    msg.textContent = "Enviando...";
 
-  const datos = {
-    nombre: qs.get("n") || "Invitado Desconocido",
-    pases: qs.get("p") || "1",
-    asistencia: respuesta === "si" ? "Confirmado ✅" : "Cancelado ❌",
-    enlace: window.location.href
-  };
+    const datos = {
+      nombre: qs.get("n") || "Invitado",
+      pases: qs.get("p") || "1",
+      asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
+      enlace: window.location.href
+    };
 
-  try {
-    await fetch(WEB_APP_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(datos)
-    });
+    try {
+      await fetch(WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors", // IMPORTANTE para Apps Script
+        body: JSON.stringify(datos)
+      });
 
-    // IMPORTANTE: aquí asumimos envío, no confirmación real
-    msg.style.color = "#27ae60";
-    msg.textContent = "Enviado ✔ (verificando...)";
+      msg.style.color = "#27ae60";
+      msg.textContent = "Confirmación enviada ✔";
 
-    setTimeout(() => {
-      msg.textContent = "Si no aparece en la lista, revisa configuración.";
-    }, 2000);
+      setTimeout(() => {
+        modal.classList.remove("open");
+        msg.textContent = "";
+      }, 2000);
 
-  } catch (error) {
-    console.error(error);
-    msg.style.color = "#e74c3c";
-    msg.textContent = "Error de conexión.";
+    } catch (error) {
+      console.error("Error:", error);
+      msg.style.color = "#e74c3c";
+      msg.textContent = "Error al enviar";
+    }
   }
-}
 
   // ===============================
   // 5. BOTONES
