@@ -630,6 +630,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnNo = document.getElementById("btnNo");
   const msg = document.getElementById("statusMsg");
 
+  // 🔒 CLAVE ÚNICA POR INVITADO
+  const invitadoKey = "rsvp_" + (qs.get("n") || "invitado");
+
   // ===============================
   // ABRIR MODAL
   // ===============================
@@ -651,9 +654,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===============================
-  // ENVIAR ASISTENCIA (FINAL)
+  // ENVIAR ASISTENCIA
   // ===============================
   function enviarAsistencia(respuesta) {
+
+    // 🔒 VALIDAR SI YA RESPONDIÓ
+    if (localStorage.getItem(invitadoKey)) {
+      msg.style.color = "#e67e22";
+      msg.textContent = "Ya registraste tu respuesta, no puedes repetirla";
+
+      setTimeout(() => {
+        msg.textContent = "";
+      }, 5000);
+
+      return;
+    }
 
     const datos = {
       nombre: qs.get("n") || "Invitado",
@@ -670,27 +685,27 @@ document.addEventListener("DOMContentLoaded", function () {
       "&enlace=" + encodeURIComponent(datos.enlace) +
       "&t=" + Date.now();
 
-    console.log("ENVIANDO:", url);
-
-    // 🔥 iframe oculto (método estable)
+    // 🔥 Guardar en Google Sheets
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
     iframe.src = url;
-
-    iframe.onload = function () {
-      // ✔ No leemos response (evita error de conexión)
-
-      if (msg) {
-        msg.style.color = "#27ae60";
-        msg.textContent = "Confirmación enviada ✔";
-      }
-
-      setTimeout(() => {
-        iframe.remove();
-      }, 1000);
-    };
-
     document.body.appendChild(iframe);
+
+    // 🔒 GUARDAR EN LOCAL (bloqueo)
+    localStorage.setItem(invitadoKey, respuesta);
+
+    // ✅ MENSAJE
+    msg.style.color = "#27ae60";
+    msg.textContent = "Respuesta enviada correctamente ✔";
+
+    // 🔒 BLOQUEAR BOTONES
+    btnYes.disabled = true;
+    btnNo.disabled = true;
+
+    // ⏳ QUITAR MENSAJE EN 5 SEGUNDOS
+    setTimeout(() => {
+      msg.textContent = "";
+    }, 5000);
   }
 
   // ===============================
@@ -703,6 +718,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
 </body>
 </html>
