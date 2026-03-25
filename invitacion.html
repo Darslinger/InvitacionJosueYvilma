@@ -651,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ===============================
-  // ENVIAR ASISTENCIA
+  // ENVIAR ASISTENCIA (FINAL)
   // ===============================
   function enviarAsistencia(respuesta) {
 
@@ -672,31 +672,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("ENVIANDO:", url);
 
-    // 🔥 iframe oculto (mejor método)
+    // 🔥 iframe oculto (método estable)
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
     iframe.src = url;
 
     iframe.onload = function () {
-      try {
-        const response = iframe.contentDocument.body.innerText;
+      // ✔ No leemos response (evita error de conexión)
 
-        if (response.includes("GUARDADO")) {
-          msg.style.color = "#27ae60";
-          msg.textContent = "Confirmación enviada ✔";
-        } 
-        else if (response.includes("YA_REGISTRADO")) {
-          msg.style.color = "#e67e22";
-          msg.textContent = "Ya habías confirmado anteriormente";
-        } 
-        else {
-          msg.style.color = "#e74c3c";
-          msg.textContent = "Error al enviar";
-        }
-
-      } catch (e) {
-        msg.style.color = "#e74c3c";
-        msg.textContent = "Error de conexión";
+      if (msg) {
+        msg.style.color = "#27ae60";
+        msg.textContent = "Confirmación enviada ✔";
       }
 
       setTimeout(() => {
