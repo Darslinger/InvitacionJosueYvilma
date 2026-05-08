@@ -1,17 +1,19 @@
+Invitacion boda · HTML
+Copiar
+
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Invitación | Vilma & Josué</title>
-
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Crimson+Text:ital@1&family=Great+Vibes&display=swap" rel="stylesheet">
+ 
   <style>
     :root{
-      /* Paleta Cream y Azul Lavanda */
       --cream:#f3f2f0;
       --blue:#aebbd6;
       --ink:#1f1f1f;
@@ -24,10 +26,9 @@
       --textMax: 62ch;
       --gold-metallic: #b89c7d;
       --gold-light: #dab491;
-      /* Color para iconos finos sobre azul */
       --silver-etch: #e0e6ed; 
     }
-
+ 
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -38,8 +39,7 @@
       text-rendering: optimizeLegibility;
       overflow-x: hidden;
     }
-
-    /* ========= HERO / PORTADA ========= */
+ 
     .hero{ 
       position: relative; 
       background: #000; 
@@ -57,13 +57,13 @@
       left: 0;
       z-index: 0;
     }
-
+ 
     .hero::after{
       content:""; position:absolute; inset:0;
       background: linear-gradient(to bottom, rgba(0,0,0,.50), rgba(0,0,0,.20) 42%, rgba(0,0,0,.60));
       z-index: 1;
     }
-
+ 
     .heroContent{
       position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
       text-align:center; padding: 30px 16px; z-index:2; color:#fff;
@@ -74,8 +74,7 @@
     .heroTitle{ font-family: var(--serif); font-weight: 600; letter-spacing:.10em; text-transform: uppercase; font-size: clamp(2.2rem, 8vw, 3.5rem); margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,.45); }
     .heroNames{ font-family: var(--serif); font-weight: 500; font-size: clamp(1.4rem, 5vw, 1.8rem); margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,.40); }
     .heroDate{ font-family: var(--sans); letter-spacing:.20em; text-transform: uppercase; font-weight: 600; font-size: clamp(.82rem, 2.8vw, .92rem); text-shadow: 0 2px 10px rgba(0,0,0,.35); }
-
-    /* ========= INVITACIÓN PREMIUM ========= */
+ 
     .invitation-premium {
       padding: 100px 0;
       display: flex;
@@ -87,7 +86,7 @@
       background-position: center;
       box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
     }
-
+ 
     .inv-card-frame { width: min(90%, 550px); position: relative; z-index: 2; }
     .inv-paper { background: #fff; padding: 10px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
     .inv-inner-content { border: 1px solid rgba(184, 191, 218, 0.4); padding: 50px 30px; text-align: center; }
@@ -95,7 +94,6 @@
     .gold-text { background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
     .inv-names-script { font-family: 'Pinyon Script', cursive; font-size: clamp(3rem, 10vw, 4.5rem); margin: 15px 0 30px 0; line-height: 1.1; }
     .inv-serif-text { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: rgba(0,0,0,0.75); }
-    .inv-parents { font-family: var(--serif); font-size: 1rem; margin-bottom: 20px; line-height: 1.6; color: var(--ink); opacity: 0.9; }
     .inv-date-premium { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 40px; }
     .inv-date-premium span { font-size: 0.75rem; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
     .date-number { position: relative; padding: 0 15px; }
@@ -103,14 +101,69 @@
     .date-number::before { left: -50px; }
     .date-number::after { right: -50px; }
     .gold-number { font-size: 3rem; line-height: 1; color: var(--btn); font-family: var(--serif); }
-
-    /* ========= RELOJ ========= */
+ 
+    /* ===== PADRES: DOS COLUMNAS ===== */
+    .inv-parents-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+ 
+    .inv-parent-side {
+      font-family: var(--serif);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+ 
+    .inv-parent-side .parent-role {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 4px;
+      background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+ 
+    .inv-parent-side strong {
+      font-weight: 700;
+      display: block;
+    }
+ 
+    .parent-y {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 1.3rem;
+      color: var(--gold-metallic);
+      display: block;
+      line-height: 1.2;
+      margin: 2px 0;
+    }
+      width: 1px;
+      background: rgba(184, 191, 218, 0.5);
+      align-self: stretch;
+      display: none; /* solo decorativo en desktop si se quiere */
+    }
+ 
+    @media (max-width: 400px) {
+      .inv-parents-grid { grid-template-columns: 1fr; }
+    }
+ 
     .countSec{ background: var(--blue); color:#fff; padding: 34px 0; text-align:center; position: relative; z-index: 10; }
     .countRow{ display:flex; justify-content:center; gap: clamp(18px, 4.6vw, 42px); flex-wrap:wrap; margin-top: 16px;}
     .countNum{ font-family: var(--serif); font-weight: 600; font-size: clamp(1.65rem, 5.2vw, 2.35rem); }
     .countLab{ font-size: clamp(.74rem, 2.4vw, .82rem); letter-spacing:.16em; text-transform: uppercase; font-weight: 600; }
-
-    /* ========= CALENDARIO ========= */
+ 
     .bigDay { text-align:center; padding: 60px 0; background: var(--cream); position: relative; z-index: 10; }
     .bigDay h3 { margin: 0 0 30px; font-family: var(--serif); font-weight: 600; font-size: clamp(1.4rem, 4vw, 1.8rem); letter-spacing: .08em; text-transform: uppercase; }
     .calStage { width: min(720px, 94%); margin: 0 auto; position: relative; padding: 60px 20px; border-radius: 24px; background-image: url('assets/fondoflor.jpeg'); background-size: cover; background-position: center; }
@@ -122,10 +175,28 @@
     .day { width: 34px; height: 34px; display: grid; place-items: center; font-size: 0.95rem; position: relative; }
     .empty { opacity: 0; }
     .heart-date { color: #fff !important; font-weight: 700 !important; z-index: 5; }
-    .heart-date::before { content: "❤"; position: absolute; font-size: 38px; color: var(--btn); z-index: -1; top: 48%; left: 50%; transform: translate(-50%, -50%); animation: heartPulse 1.5s infinite ease-in-out; }
+    .heart-date::before { 
+      content: ""; 
+      position: absolute; 
+      width: 38px; 
+      height: 38px;
+      background-color: var(--btn);
+      z-index: -1; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      animation: heartPulse 1.5s infinite ease-in-out;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z'/%3E%3C/svg%3E");
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+    }
     @keyframes heartPulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.2); } }
-
-    /* ========= LUGARES ========= */
+ 
     .places { 
       padding: 80px 0; 
       background-image: url('assets/florfondo3.jpg'); 
@@ -135,7 +206,7 @@
       position: relative; 
       z-index: 10; 
     }
-
+ 
     .places::before {
       content: "";
       position: absolute;
@@ -143,7 +214,7 @@
       background: rgba(243, 242, 240, 0.75); 
       z-index: 1;
     }
-
+ 
     .places .wrap { position: relative; z-index: 2; }
     .placesGrid { width: min(90%, 500px); margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
     
@@ -162,10 +233,10 @@
       background-size: cover;
       color: #fff; 
     }
-
+ 
     .placeCard.reception { background: rgba(255, 255, 255, 0.98); }
     .placeCard:hover { transform: translateY(-5px); }
-
+ 
     .placeIcon { width: 45px; height: 45px; margin: 0 auto 15px; }
     .placeIcon svg { width:100%; height:100%; fill:none; stroke: currentColor; stroke-width: 1.2; }
     .placeCard.ceremony .placeIcon { color: rgba(255,255,255,0.8); }
@@ -180,24 +251,21 @@
     .placeCard.ceremony .placeTime { border-color: rgba(255,255,255,0.3); }
     .placeAddr { font-family: 'Pinyon Script', cursive; font-size: 1.7rem; line-height: 1.2; color: var(--gold-metallic); margin: 0 auto 30px; }
     .placeCard.ceremony .placeAddr { color: #fff; }
-
+ 
     .btn-map { 
       display: inline-block; padding: 14px 35px; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; text-decoration: none; 
       background: #fff; color: var(--ink); border: 1px solid rgba(0,0,0,0.1); border-radius: 4px; transition: all 0.3s;
     }
     .btn-map:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-    /* ========= COLLAGE ========= */
+ 
     .collage-section { background: var(--cream); padding: 60px 0; position: relative; z-index: 10; overflow: hidden; }
     .collage-slider { display: flex; overflow-x: auto; gap: 30px; padding: 20px 40px; scroll-snap-type: x mandatory; scrollbar-width: none; }
     .instant-photo { flex: 0 0 100%; scroll-snap-align: center; display: flex; flex-direction: column; align-items: center; }
     .photo-frame { background: #fff; padding: 12px 12px 40px 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: min(100%, 350px); }
     .instant-photo img { width: 100%; height: 380px; object-fit: cover; }
     .photo-caption { font-family: 'Crimson Text', serif; font-style: italic; text-align: center; margin-top: 15px; color: rgba(0,0,0,0.6); }
-
-    /* ========= PLACEHOLDERS PARA ICONOS CON IMAGEN INTEGRADA ========= */
+ 
     .icon-placeholder {
-      /* TAMAÑO GENERAL PARA ICONOS LINEALES */
       width: 180px; 
       height: 180px;
       margin: 20px auto;
@@ -205,19 +273,13 @@
       align-items: center;
       justify-content: center;
     }
-    .icon-placeholder img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* ESTILO ESPECÍFICO PARA EL ICONO DE COPAS LIMPIO Y GRANDE */
+ 
     .copas-icon-container {
       width: 180px; 
       height: 180px;
       margin: 30px auto; 
     }
-
-    /* ========= CODIGO Y ADULTOS SECTION CON FONDO PNG ========= */
+ 
     .codigo-adultos-section {
       position: relative;
       padding: 120px 0;
@@ -236,7 +298,7 @@
       background: rgba(243, 242, 240, 0.4);
       z-index: 1;
     }
-
+ 
     .dual-grid {
       position: relative;
       z-index: 2;
@@ -247,7 +309,7 @@
       gap: 50px;
       align-items: center;
     }
-
+ 
     .dress-code-card-dual {
       background-color: var(--blue);
       border-radius: 18px;
@@ -256,7 +318,7 @@
       color: #fff;
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
-
+ 
     .adults-card-dual {
       background: #fff;
       border-radius: 200px 200px 0 0; 
@@ -266,21 +328,20 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.08);
       border: 1px solid rgba(184, 191, 218, 0.3);
     }
-
+ 
     .dual-label { font-family: var(--sans); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 8px; }
     .dual-title-script { font-family: 'Pinyon Script', cursive; font-size: 3rem; font-weight: 400; margin-bottom: 15px; }
     .dress-code-card-dual .dual-title-script, 
     .dress-code-card-dual .dual-label { color: #fff; }
     .adults-card-dual .dual-title-script, 
     .adults-card-dual .dual-label { color: var(--ink); }
-
+ 
     .dual-text { font-family: 'Crimson Text', serif; font-size: 1.1rem; line-height: 1.6; max-width: 320px; margin: 0 auto 30px; }
-    .dress-code-card-dual .dual-text { color: #fff; } /* Texto blanco sobre fondo azul */
+    .dress-code-card-dual .dual-text { color: #fff; }
     .adults-card-dual .dual-text { color: #666; font-style: italic; }
-
+ 
     .dress-tag-dual { font-family: var(--sans); font-size: 0.85rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.9; color: #fff; }
-
-    /* EFECTO DE GRABADO PLATEADO BRILLANTE Y NÍTIDO AL ICONO TRAJE */
+ 
     .gala-icon {
       filter: drop-shadow(0 0 1px rgba(255,255,255,0.9)) 
               brightness(1.5) 
@@ -288,8 +349,7 @@
               opacity(1) 
               drop-shadow(0 0 0 rgba(255,255,255,0.95)); 
     }
-
-    /* ========= FINAL SECTION CON FONDO ACLARADO ========= */
+ 
     .final-section-container {
       position: relative;
       padding: 80px 0;
@@ -299,7 +359,7 @@
       background-attachment: fixed;
       z-index: 10;
     }
-
+ 
     .final-section-container::before {
       content: "";
       position: absolute;
@@ -307,7 +367,7 @@
       background: rgba(243, 242, 240, 0.85); 
       z-index: 1;
     }
-
+ 
     .novios-photo-collage {
       position: relative;
       z-index: 2;
@@ -325,7 +385,7 @@
       border-radius: 8px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     }
-
+ 
     .final-grid-dual {
       position: relative;
       z-index: 2;
@@ -336,7 +396,7 @@
       gap: 50px;
       align-items: center;
     }
-
+ 
     .sobres-card {
       background: #fff;
       border-radius: 8px;
@@ -346,16 +406,15 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.06);
       border: 1px solid rgba(0,0,0,0.03);
     }
-
+ 
     .sobres-title {
       font-family: 'Pinyon Script', cursive;
       font-size: 3rem;
       color: var(--ink);
       margin-bottom: 25px;
-      /* BAJAR EL TÍTULO UN POCO */
       margin-top: 20px;
     }
-
+ 
     .sobres-title-text {
       font-family: var(--sans);
       font-size: 0.75rem;
@@ -365,7 +424,7 @@
       display: block;
       margin-bottom: 8px;
     }
-
+ 
     .sobres-text {
       font-family: var(--sans);
       font-size: 1rem;
@@ -374,7 +433,7 @@
       max-width: 320px;
       margin: 0 auto 30px;
     }
-
+ 
     .rsvp-card-arco {
       background-color: var(--blue);
       border-radius: 200px 200px 0 0; 
@@ -383,7 +442,7 @@
       color: #fff;
       box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     }
-
+ 
     .rsvp-card-arco .rsvp-arco-title-text {
       font-family: var(--sans);
       font-size: 0.75rem;
@@ -394,19 +453,15 @@
       margin-bottom: 8px;
       color: #fff;
     }
-
-    .rsvp-card-arco .dual-title-script {
-      color: #fff;
-    }
-
+ 
+    .rsvp-card-arco .dual-title-script { color: #fff; }
     .rsvp-card-arco .dual-text {
       color: rgba(255,255,255,0.9);
       font-family: var(--sans);
       font-size: 1rem;
       font-style: normal;
     }
-
-    /* ESTILO ACTUALIZADO PARA GRUPO DE BOTONES RSVP */
+ 
     .btn-group-rsvp {
       display: flex;
       flex-direction: column;
@@ -414,22 +469,20 @@
       align-items: center;
       margin-top: 20px;
     }
-
+ 
     .btn { 
       display: inline-block; padding: 16px 40px; font-size: .8rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; background: var(--btn); color: #fff; border: none; border-radius: 4px; cursor: pointer; transition: .3s; }
     
     .btn-no { background: rgba(255,255,255,0.2); border: 1px solid #fff; color: #fff; }
     .btn-no:hover { background: rgba(255,255,255,0.3); }
-
-    /* ESTILO PARA LOS BOTONES DENTRO DEL MODAL */
     .btn-yes-modal { background: var(--btn); color: #fff; }
     .btn-no-modal { background: #ccc; color: var(--ink); }
-
+ 
     .modalOverlay{ position: fixed; inset: 0; background: rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index: 9999; }
     .modalOverlay.open{ display:flex; }
     .modalBox{ width: min(450px, 90%); background: #fff; padding: 35px; border-radius: 18px; position: relative; text-align:center; }
     .modalClose{ position:absolute; top: 15px; right: 15px; border:none; background:none; font-size: 24px; cursor:pointer; }
-
+ 
     @media (max-width: 768px) { 
       .placesGrid, .dual-grid, .final-grid-dual, .novios-photo-collage { grid-template-columns: 1fr; } 
       .novios-photo-collage img { height: 300px; }
@@ -438,7 +491,7 @@
     }
   </style>
 </head>
-
+ 
 <body>
   <main>
     <section class="hero">
@@ -452,15 +505,36 @@
         </div>
       </div>
     </section>
-
+ 
     <section class="invitation-premium">
       <div class="inv-card-frame">
         <div class="inv-paper">
           <div class="inv-inner-content">
-            <p class="inv-parents">Junto a nuestros padres Leonel Flores Y Luisa matamoros, Richard Rivera Y Esmirna buezo   ,<br>tenemos el placer de invitarles a nuestra boda</p>
-            <p class="inv-label-premium"><span class="gold-text">Invitación</span> a la boda de</p>
-            <h2 class="inv-names-script">Josué & Vilma</h2>
-            <p class="inv-serif-text">Tenemos el honor de invitarte a celebrar nuestra unión</p>
+ 
+            <!-- PADRES: dos columnas, en negrita -->
+            <div class="inv-parents-grid">
+              <div class="inv-parent-side">
+                <span class="parent-role">Padres del Novio</span>
+                <strong>Richard Rivera</strong>
+                <span class="parent-y">Y</span>
+                <strong>Esmirna Buezo</strong>
+              </div>
+              <div class="inv-parent-side">
+                <span class="parent-role">Padres de la Novia</span>
+                <strong>Leonel Flores</strong>
+                <span class="parent-y">Y</span>
+                <strong>Luisa Matamoros</strong>
+              </div>
+            </div>
+ 
+            <p class="inv-serif-text" style="margin-bottom: 20px;">tenemos el honor de invitarles a nuestra boda</p>
+ 
+            <h2 class="inv-names-script" style="display:flex; flex-direction:column; align-items:center; line-height:1.2;">
+              <span>Josué Rivera</span>
+              <span style="font-family:'Pinyon Script',cursive; font-size: clamp(2rem, 7vw, 3rem); background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display:block; margin: 2px 0;">~ Y ~</span>
+              <span>Vilma Flores</span>
+            </h2>
+ 
             <div class="inv-date-premium">
               <span>SÁBADO</span>
               <div class="date-number"><span class="gold-number">27</span></div>
@@ -470,17 +544,17 @@
         </div>
       </div>
     </section>
-
-   <section class="countSec">
-  <div class="countNum" style="font-family: var(--serif); font-size: 1.2rem;">Faltan</div>
-  <div class="countRow">
-    <div class="countItem"><div class="countNum" id="days">000</div><div class="countLab">Días</div></div>
-    <div class="countItem"><div class="countNum" id="hours">00</div><div class="countLab">Horas</div></div>
-    <div class="countItem"><div class="countNum" id="minutes">00</div><div class="countLab">Min</div></div>
-    <div class="countItem"><div class="countNum" id="seconds">00</div><div class="countLab">Seg</div></div>
-  </div>
-</section>
-
+ 
+    <section class="countSec">
+      <div class="countNum" style="font-family: var(--serif); font-size: 1.2rem;">Faltan</div>
+      <div class="countRow">
+        <div class="countItem"><div class="countNum" id="days">00</div><div class="countLab">Días</div></div>
+        <div class="countItem"><div class="countNum" id="hours">00</div><div class="countLab">Horas</div></div>
+        <div class="countItem"><div class="countNum" id="minutes">00</div><div class="countLab">Min</div></div>
+        <div class="countItem"><div class="countNum" id="seconds">00</div><div class="countLab">Seg</div></div>
+      </div>
+    </section>
+ 
     <section class="bigDay">
       <h3>Reserva la fecha</h3>
       <div class="calStage">
@@ -497,7 +571,7 @@
         </div>
       </div>
     </section>
-
+ 
     <section class="places">
       <div class="wrap">
         <div class="placesGrid">
@@ -511,7 +585,7 @@
             <div class="placeAddr">Iglesia De Germania</div>
             <a class="btn-map" href="https://maps.app.goo.gl/dNS4r3oK6ubziQkt9?g_st=iw" target="_blank">Ver ubicación</a>
           </div>
-
+ 
           <div class="placeCard reception">
             <div class="placeIcon">
                 <svg viewBox="0 0 24 24"><path d="M8 3h6v2a4 4 0 0 1-4 4H8V3zM12 9v11M9 20h6M14 5h4v2a4 4 0 0 1-4 4h-2"></path></svg>
@@ -525,7 +599,7 @@
         </div>
       </div>
     </section>
-
+ 
     <section class="collage-section">
       <div class="collage-slider" id="slider">
         <div class="instant-photo"><div class="photo-frame"><img src="assets/image-7.png" alt=""><p class="photo-caption">Nuestra Historia</p></div></div>
@@ -533,23 +607,23 @@
         <div class="instant-photo"><div class="photo-frame"><img src="assets/image-3.png" alt=""><p class="photo-caption">Junio 27, 2026</p></div></div>
       </div>
     </section>
-
+ 
     <section class="codigo-adultos-section">
       <div class="dual-grid">
         
         <div class="dress-code-card-dual">
           <span class="dual-label">VESTIMENTA</span>
-          <h2 class="dual-title-script">Gala</h2>
-          <div class="icon-placeholder">
+          <h2 class="dual-title-script" style="text-transform: uppercase; font-family: var(--serif); font-size: 2rem; letter-spacing: 0.15em;">GALA</h2>
+          <div class="icon-placeholder" style="margin-top: -10px;">
             <img src="assets/iconotraje.png" alt="Dress Code Gala" class="gala-icon">
           </div>
           <p class="dual-text">
-            Hombres: Traje formal <br>
-            Mujeres: Vestido de noche
+            Hombres: Traje Formal <br>
+            Mujeres: Vestido De Noche — Ayúdanos a conservar la estética de nuestra boda evitando el color rojo en los vestidos.
           </p>
-          <div class="dress-tag-dual">DRESS CODE </div>
+          <div class="dress-tag-dual">DRESS CODE</div>
         </div>
-
+ 
         <div class="adults-card-dual">
           <span class="dual-label">EVENTO SOLO PARA</span>
           <h2 class="dual-title-script">Adultos</h2>
@@ -560,25 +634,25 @@
             Adoramos a sus hijos, pero para comodidad de todos los invitados, agradecemos que al evento asistan sin niños.
           </p>
         </div>
-
+ 
       </div>
     </section>
-
+ 
     <section class="final-section-container">
       
       <div class="final-grid-dual">
         
         <div class="sobres-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
           <span class="sobres-title-text">REGALO DE BODAS</span>
-          <h2 class="sobres-title">Lluvia de Sobres</h2>
+          <h2 class="sobres-title" style="font-family: 'Great Vibes', cursive; font-size: 3.5rem;">Lluvia de Sobres</h2>
           <div class="icon-placeholder">
             <img src="assets/sobres.png" alt="Lluvia de Sobres">
           </div>
           <p class="sobres-text">
-            El mejor regalo es que nos acompañen en este día tan especial. Si desean bendecirnos con un detalle, agradeceremos con el corazón cualquier aporte voluntario en sobre.
+            Con gratitud recibiremos su presencia y buenos deseos. Si desean honrarnos con un obsequio, agradeceremos sea en efectivo.
           </p>
         </div>
-
+ 
         <div class="rsvp-card-arco">
           <span class="rsvp-arco-title-text">POR FAVOR</span>
           <h2 class="dual-title-script">Confírmanos</h2>
@@ -592,12 +666,12 @@
             <button class="btn btn-confirm" id="openRsvp" style="background: #fff; color: var(--btn);">Confirmar</button>
           </div>
         </div>
-
+ 
       </div>
     </section>
-
+ 
   </main>
-
+ 
   <div class="modalOverlay" id="rsvpModal">
     <div class="modalBox">
       <button class="modalClose" id="closeRsvp">×</button>
@@ -607,7 +681,7 @@
         Invitación para: <strong id="rsvpName">Invitado</strong><br>
         Cupos: <span id="rsvpCupos">0</span>
       </div>
-
+ 
       <div style="display: flex; justify-content: center; gap: 15px; margin-top: 25px;">
         <button class="btn btn-yes-modal" id="btnYes">Sí asistiré</button>
         <button class="btn btn-no-modal" id="btnNo">No asistiré</button>
@@ -619,50 +693,42 @@
   
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
- // ===============================
-  // 1. LÓGICA DEL CONTADOR
-  // ===============================
+ 
   const fechaBoda = new Date('June 27, 2026 00:00:00').getTime();
-
+ 
   function actualizarReloj() {
     const ahora = new Date().getTime();
     const distancia = fechaBoda - ahora;
-
+ 
     const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
     const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
-
-    // Actualiza los números usando los IDs del HTML
+ 
     const dEl = document.getElementById("days");
     const hEl = document.getElementById("hours");
     const mEl = document.getElementById("minutes");
     const sEl = document.getElementById("seconds");
-
-    if (dEl) dEl.innerText = dias.toString().padStart(3, '0');
+ 
+    if (dEl) dEl.innerText = dias.toString().padStart(2, '0');
     if (hEl) hEl.innerText = horas.toString().padStart(2, '0');
     if (mEl) mEl.innerText = minutos.toString().padStart(2, '0');
     if (sEl) sEl.innerText = segundos.toString().padStart(2, '0');
-
+ 
     if (distancia < 0) {
       clearInterval(countdown);
       const row = document.querySelector(".countRow");
       if (row) row.innerHTML = "<div class='countNum'>¡Hoy es el gran día!</div>";
     }
   }
-
-  // Ejecutar cada segundo
+ 
   const countdown = setInterval(actualizarReloj, 1000);
-  actualizarReloj(); // Ejecución inmediata para evitar el 00 inicial
-
-  // ===============================
-  // 2. LÓGICA DE MÚSICA - FONSECA
-  // ===============================
+  actualizarReloj();
+ 
   const audio = new Audio('Fonseca - Que Suerte Tenerte (Audio).mp3');
   audio.loop = true;
   audio.volume = 0.6;
-
+ 
   const musicBtn = document.createElement('button');
   musicBtn.innerHTML = '🎵';
   musicBtn.style.cssText = `
@@ -685,7 +751,7 @@ document.addEventListener("DOMContentLoaded", function () {
     transition: all 0.3s ease;
   `;
   document.body.appendChild(musicBtn);
-
+ 
   function iniciarMusica() {
     audio.play().then(() => {
       musicBtn.innerHTML = '🔊';
@@ -693,10 +759,10 @@ document.addEventListener("DOMContentLoaded", function () {
       window.removeEventListener('touchstart', iniciarMusica);
     }).catch(e => console.log("Esperando interacción..."));
   }
-
+ 
   window.addEventListener('click', iniciarMusica);
   window.addEventListener('touchstart', iniciarMusica);
-
+ 
   musicBtn.onclick = (e) => {
     e.stopPropagation();
     if (audio.paused) {
@@ -709,10 +775,7 @@ document.addEventListener("DOMContentLoaded", function () {
       musicBtn.style.background = '#7f94c4';
     }
   };
-
-  // ===============================
-  // 3. LÓGICA DE REGISTRO (GOOGLE SHEETS)
-  // ===============================
+ 
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbynNJJ-ZtbPiuWUwcGjnZ0_7ptKtxxgpiBcWW69PckUDTe6_887k9WifQOLMeg4kg/exec";
   const qs = new URLSearchParams(window.location.search);
   const modal = document.getElementById("rsvpModal");
@@ -721,9 +784,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnYes = document.getElementById("btnYes");
   const btnNo = document.getElementById("btnNo");
   const msg = document.getElementById("statusMsg");
-
+ 
   const invitadoKey = "rsvp_" + (qs.get("n") || "invitado");
-
+ 
   function openModal() {
     const nameEl = document.getElementById("rsvpName");
     const cuposEl = document.getElementById("rsvpCupos");
@@ -731,51 +794,51 @@ document.addEventListener("DOMContentLoaded", function () {
     if (cuposEl) cuposEl.textContent = qs.get("p") || "1";
     if (modal) modal.classList.add("open");
   }
-
+ 
   function closeModal() {
     if (modal) modal.classList.remove("open");
   }
-
+ 
   function enviarAsistencia(respuesta) {
     if (localStorage.getItem(invitadoKey)) {
       msg.style.color = "#e67e22";
       msg.textContent = "Ya registraste tu respuesta, no puedes repetirla";
       return;
     }
-
+ 
     const datos = {
       nombre: qs.get("n") || "Invitado",
       pases: qs.get("p") || "1",
       asistencia: respuesta === "si" ? "Confirmado" : "Cancelado",
       enlace: window.location.href
     };
-
+ 
     const url = WEB_APP_URL +
       "?nombre=" + encodeURIComponent(datos.nombre) +
       "&pases=" + encodeURIComponent(datos.pases) +
       "&asistencia=" + encodeURIComponent(datos.asistencia) +
       "&enlace=" + encodeURIComponent(datos.enlace) +
       "&t=" + Date.now();
-
+ 
     const iframe = document.createElement("iframe");
     iframe.style.display = "none";
     iframe.src = url;
     document.body.appendChild(iframe);
-
+ 
     localStorage.setItem(invitadoKey, respuesta);
     msg.style.color = "#27ae60";
     msg.textContent = "Respuesta enviada correctamente ✔";
     btnYes.disabled = true;
     btnNo.disabled = true;
-
+ 
     setTimeout(() => { msg.textContent = ""; }, 5000);
   }
-
+ 
   if (btnOpen) btnOpen.addEventListener("click", openModal);
   if (btnClose) btnClose.addEventListener("click", closeModal);
   if (btnYes) btnYes.addEventListener("click", () => enviarAsistencia("si"));
   if (btnNo) btnNo.addEventListener("click", () => enviarAsistencia("no"));
-
+ 
 });
 </script>
 </body>
