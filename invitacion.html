@@ -146,10 +146,11 @@
       line-height: 1.2;
       margin: 2px 0;
     }
+    .inv-parents-divider {
       width: 1px;
       background: rgba(184, 191, 218, 0.5);
       align-self: stretch;
-      display: none; /* solo decorativo en desktop si se quiere */
+      display: none;
     }
 
     @media (max-width: 400px) {
@@ -165,8 +166,7 @@
     .bigDay h3 { margin: 0 0 30px; font-family: var(--serif); font-weight: 600; font-size: clamp(1.4rem, 4vw, 1.8rem); letter-spacing: .08em; text-transform: uppercase; }
     .calStage { width: min(720px, 92%); margin: 0 auto; position: relative; padding: 40px 15px; border-radius: 24px; background-image: url('assets/fondoflor.jpeg'); background-size: cover; background-position: center; }
     .calStage::before { content: ""; position: absolute; inset: 0; background: rgba(243, 242, 240, 0.5); border-radius: 24px; z-index: 1; }
-    .calendar { width: min(420px, 100%); margin: 0 auto; font-family: var(--serif); position: relative; z-index: 2; background: #fff; border-radius: 15px; padding: 35px 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-    .calendar { width: min(420px, 100%); margin: 0 auto; font-family: var(--serif); position: relative; z-index: 2; background: #fff; border-radius: 15px; padding: 35px 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); overflow: hidden; }
+    .calendar { width: min(420px, 100%); margin: 0 auto; font-family: var(--serif); position: relative; z-index: 2; background: #fff; border-radius: 15px; padding: 25px 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); overflow: hidden; }
     .calMonth { display: flex; align-items: center; justify-content: center; gap: 15px; font-family: var(--sans); font-weight: 800; letter-spacing: .3em; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 30px; }
     .calGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; justify-items: center; width: 100%; }
     .dow { font-family: var(--sans); font-size: 0.65rem; letter-spacing: .05em; text-transform: uppercase; opacity: 0.5; font-weight: 700; margin-bottom: 10px; text-align: center; width: 100%; }
@@ -483,11 +483,102 @@
     .modalBox{ width: min(450px, 90%); background: #fff; padding: 35px; border-radius: 18px; position: relative; text-align:center; }
     .modalClose{ position:absolute; top: 15px; right: 15px; border:none; background:none; font-size: 24px; cursor:pointer; }
 
-    @media (max-width: 768px) { 
-      .placesGrid, .dual-grid, .final-grid-dual, .novios-photo-collage { grid-template-columns: 1fr; } 
-      .novios-photo-collage img { height: 300px; }
-      .dual-title-script, .sobres-title { font-size: 2.5rem; }
+    /* ===== RESPONSIVE COMPLETO ===== */
+
+    /* Tablet y móvil grande */
+    @media (max-width: 768px) {
+      /* Grids pasan a una columna */
+      .placesGrid,
+      .dual-grid,
+      .final-grid-dual,
+      .novios-photo-collage { grid-template-columns: 1fr; gap: 30px; }
+
+      .novios-photo-collage img { height: 250px; }
+
+      /* Tarjetas */
       .adults-card-dual, .rsvp-card-arco { border-radius: 120px 120px 0 0; }
+      .dual-title-script { font-size: 2.2rem; }
+      .sobres-title { font-size: 2.2rem; }
+
+      /* Sección vestimenta y final */
+      .codigo-adultos-section { padding: 60px 0; }
+      .final-section-container { padding: 50px 0; }
+
+      /* Tarjeta invitación */
+      .inv-inner-content { padding: 35px 20px; }
+      .invitation-premium { padding: 60px 0; }
+
+      /* Lugares */
+      .placeCard { padding: 40px 20px; border-radius: 40px; }
+      .placeTitle { font-size: 1.8rem; }
+
+      /* Sobres y RSVP */
+      .sobres-card { padding: 40px 25px; }
+      .rsvp-card-arco { padding: 60px 25px 40px; }
+
+      /* Dress code */
+      .dress-code-card-dual { padding: 40px 25px; }
+      .adults-card-dual { padding: 60px 25px 40px; }
+
+      /* background-attachment fixed no funciona bien en iOS */
+      .places,
+      .codigo-adultos-section,
+      .final-section-container { background-attachment: scroll; }
+
+      /* Contador */
+      .countSec { padding: 25px 15px; }
+      .countRow { gap: 20px; }
+
+      /* Calendario */
+      .bigDay { padding: 40px 0; }
+      .calStage { padding: 25px 10px; }
+      .calendar { padding: 25px 10px; }
+    }
+
+    /* Móvil pequeño */
+    @media (max-width: 480px) {
+      .heroTitle { font-size: clamp(1.8rem, 10vw, 2.5rem); }
+      .heroNames { font-size: clamp(1.1rem, 5vw, 1.4rem); }
+
+      .inv-parents-grid { gap: 8px 12px; }
+      .inv-parent-side { font-size: 0.82rem; }
+      .inv-parent-side .parent-role { font-size: 0.6rem; letter-spacing: 1px; white-space: nowrap; }
+      .inv-names-script { font-size: clamp(2.2rem, 9vw, 3rem); }
+      .inv-serif-text { font-size: 1rem; }
+
+      .gold-number { font-size: 2.2rem; }
+      .inv-date-premium { gap: 8px; }
+      .inv-date-premium span { font-size: 0.65rem; letter-spacing: 1px; }
+      .date-number::before { left: -30px; width: 25px; }
+      .date-number::after { right: -30px; width: 25px; }
+
+      .placeTitle { font-size: 1.5rem; }
+      .placeAddr { font-size: 1.4rem; }
+      .placeTime { font-size: 0.9rem; }
+      .btn-map { padding: 12px 25px; font-size: 0.72rem; }
+
+      .dual-title-script { font-size: 1.9rem; }
+      .dual-text { font-size: 1rem; }
+      .sobres-title { font-size: 2rem; }
+      .sobres-text { font-size: 0.9rem; }
+
+      .icon-placeholder { width: 110px; height: 110px; }
+      .copas-icon-container { width: 130px; height: 130px; }
+
+      .photo-frame { width: 90%; }
+      .instant-photo img { height: 280px; }
+
+      .modalBox { padding: 25px 18px; }
+      .btn { padding: 13px 25px; font-size: 0.75rem; }
+    }
+
+    /* Móvil muy pequeño */
+    @media (max-width: 360px) {
+      .inv-parents-grid { grid-template-columns: 1fr; }
+      .inv-parent-side .parent-role { white-space: normal; }
+      .inv-names-script { font-size: 2rem; }
+      .gold-number { font-size: 1.8rem; }
+      .placeCard { padding: 30px 15px; border-radius: 30px; }
     }
   </style>
 </head>
@@ -520,20 +611,20 @@
                 <strong>Esmirna Buezo</strong>
               </div>
               <div class="inv-parent-side">
-                <span class="parent-role">Padres de la Novia</span>
+                <span class="parent-role" style="white-space: nowrap;">Padres de la Novia</span>
                 <strong>Leonel Flores</strong>
                 <span class="parent-y">Y</span>
                 <strong>Luisa Matamoros</strong>
               </div>
             </div>
 
-            <p class="inv-serif-text" style="margin-bottom: 20px;">tenemos el honor de invitarles a nuestra boda</p>
-
             <h2 class="inv-names-script" style="display:flex; flex-direction:column; align-items:center; line-height:1.2;">
               <span>Josué Rivera</span>
               <span style="font-family:'Pinyon Script',cursive; font-size: clamp(2rem, 7vw, 3rem); background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display:block; margin: 2px 0;">~ Y ~</span>
               <span>Vilma Flores</span>
             </h2>
+
+            <p class="inv-serif-text" style="margin-top: 20px; margin-bottom: 25px;">tenemos el honor de invitarles a nuestra boda</p>
 
             <div class="inv-date-premium">
               <span>SÁBADO</span>
