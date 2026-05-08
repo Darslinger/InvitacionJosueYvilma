@@ -7,7 +7,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Crimson+Text:ital@1&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&family=Pinyon+Script&family=Crimson+Text:ital@1&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -91,13 +91,10 @@
     .gold-text { background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
     .inv-names-script { font-family: 'Pinyon Script', cursive; font-size: clamp(3rem, 10vw, 4.5rem); margin: 15px 0 30px 0; line-height: 1.1; }
     .inv-serif-text { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: rgba(0,0,0,0.75); }
-    .inv-date-premium { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 40px; }
-    .inv-date-premium span { font-size: 0.75rem; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
-    .date-number { position: relative; padding: 0 15px; }
-    .date-number::before, .date-number::after { content:""; position: absolute; top: 50%; width: 40px; height: 1px; background-color: var(--line); opacity: 0.5; }
-    .date-number::before { left: -50px; }
-    .date-number::after { right: -50px; }
-    .gold-number { font-size: 3rem; line-height: 1; color: var(--btn); font-family: var(--serif); }
+    .inv-date-premium { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 40px; }
+    .inv-date-premium span { font-size: 0.8rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; color: var(--ink); }
+    .date-number { padding: 0 10px; }
+    .gold-number { font-size: 2.5rem; line-height: 1; color: var(--btn) !important; font-family: var(--serif); font-weight: 600; }
 
     /* ===== PADRES: DOS COLUMNAS ===== */
     .inv-parents-grid {
@@ -592,7 +589,7 @@
         <div class="heroInner">
           <div class="heroKicker">Con la bendición de Dios</div>
           <h1 class="heroTitle">¡Nos casamos!</h1>
-          <div class="heroNames">Josué & Vilma</div>
+          <div class="heroNames">Josué &nbsp;<span style="font-family:'Pinyon Script',cursive; background: linear-gradient(45deg, #b89c7d 0%, #dab491 50%, #b89c7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5em; display: inline-block; line-height: 1.4; vertical-align: middle; padding: 0 4px;">Y</span>&nbsp; Vilma</div>
           <p class="heroDate">Sábado 27 de junio · 2026</p>
         </div>
       </div>
@@ -752,7 +749,7 @@
             Celebrar nuestro amor es un sueño hecho realidad, y, para que sea perfecto, nos encantaría contar contigo en nuestra lista de invitados.<br><br>
             <strong>Confírmanos tu asistencia hasta el</strong>
           </p>
-          <div class="dress-tag-dual" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">15 de Junio</div>
+          <div class="dress-tag-dual" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">10 de Junio</div>
           
           <div class="btn-group-rsvp">
             <button class="btn btn-confirm" id="openRsvp" style="background: #fff; color: var(--btn);">Confirmar</button>
