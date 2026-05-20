@@ -49,6 +49,7 @@
       width: 100%; 
       height: 100%; 
       object-fit: cover; 
+      object-position: center center;
       position: fixed;
       top: 0;
       left: 0;
@@ -94,7 +95,14 @@
     .inv-date-premium { display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 40px; }
     .inv-date-premium span { font-size: 0.8rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; color: var(--ink); }
     .date-number { padding: 0 10px; }
-    .gold-number { font-size: 2.5rem; line-height: 1; color: var(--btn) !important; font-family: var(--serif); font-weight: 600; }
+    .gold-number { 
+      font-size: clamp(3rem, 8vw, 4.5rem) !important; 
+      line-height: 0.85; 
+      color: var(--btn) !important; 
+      font-family: var(--serif); 
+      font-weight: 600; 
+      display: block;
+    }
 
     /* ===== PADRES: DOS COLUMNAS ===== */
     .inv-parents-grid {
@@ -544,11 +552,8 @@
       .inv-names-script { font-size: clamp(2.2rem, 9vw, 3rem); }
       .inv-serif-text { font-size: 1rem; }
 
-      .gold-number { font-size: 2.2rem; }
       .inv-date-premium { gap: 8px; }
       .inv-date-premium span { font-size: 0.65rem; letter-spacing: 1px; }
-      .date-number::before { left: -30px; width: 25px; }
-      .date-number::after { right: -30px; width: 25px; }
 
       .placeTitle { font-size: 1.5rem; }
       .placeAddr { font-size: 1.4rem; }
@@ -575,7 +580,6 @@
       .inv-parents-grid { grid-template-columns: 1fr; }
       .inv-parent-side .parent-role { white-space: normal; }
       .inv-names-script { font-size: 2rem; }
-      .gold-number { font-size: 1.8rem; }
       .placeCard { padding: 30px 15px; border-radius: 30px; }
     }
   </style>
@@ -584,7 +588,7 @@
 <body>
   <main>
     <section class="hero">
-      <img src="assets/nueva1.jpeg" alt="Portada">
+      <img src="assets/image-4.png" alt="Portada">
       <div class="heroContent">
         <div class="heroInner">
           <div class="heroKicker">Con la bendición de Dios</div>
@@ -749,7 +753,7 @@
             Celebrar nuestro amor es un sueño hecho realidad, y, para que sea perfecto, nos encantaría contar contigo en nuestra lista de invitados.<br><br>
             <strong>Confírmanos tu asistencia hasta el</strong>
           </p>
-          <div class="dress-tag-dual" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">10 de Junio</div>
+          <div class="dress-tag-dual" style="color: #fff; font-size: 1.1rem; margin-bottom: 20px;">15 de Junio</div>
           
           <div class="btn-group-rsvp">
             <button class="btn btn-confirm" id="openRsvp" style="background: #fff; color: var(--btn);">Confirmar</button>
